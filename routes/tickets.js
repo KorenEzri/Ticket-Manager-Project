@@ -42,6 +42,7 @@ tickets.patch("/:tickedId/done", async (req, res) => {
     res.send({ updated: true });
   } catch ({ message }) {
     console.log(message);
+    res.status(400).send("update failed");
   }
 });
 
@@ -57,6 +58,7 @@ tickets.patch("/:tickedId/undone", async (req, res) => {
     res.send({ updated: true });
   } catch ({ message }) {
     console.log(message);
+    res.status(400).send("update failed");
   }
 });
 
