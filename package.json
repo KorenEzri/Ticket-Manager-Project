@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node seedDB.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "node_modules/.bin/jest --verbose",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.1"
+  },
+  "devDependencies": {
+    "@suvelocity/tester": "^1.0.2",
+    "jest": "26.6.0",
+    "mongo-seeding": "^3.6.0",
+    "mongodb": "^3.6.5",
+    "nodemon": "^2.0.7",
+    "supertest": "^4.0.2"
+  },
+  "engines": {
+    "node": "14.15.5"
+  }
+}
