@@ -1,4 +1,4 @@
-# ![Scale-Up Velocity](./readme-files/logo-main.png) Final 2/5 - Tickets Manager
+# ![Scale-Up Velocity](./readme-files/logo-main.png) Final 2/5 - Ticket Manager
 
 This project will include most of the topics we have learnt so far.
 This repository includes a basic skeleton with automated tests, use it for you submissions.
@@ -29,7 +29,7 @@ In this project you will create a Ticket Manager Web Application, with the [MERN
 
 We have created automated tests for your convenience, use it to check your progression.
 
-Note that the automated tests rely on your code having the exact class names and Ids as specified in the [Client requirements sechtion](#Requirements Client).
+Note that the automated tests rely on your code having the exact class names and Ids as specified in the [Client requirements section](#Requirements Client).
 We encourage you to add your own tests.
 
 - To run the _server tests_ simply run `npm run test` on server folder
@@ -37,14 +37,14 @@ We encourage you to add your own tests.
 
 ## Backend Requirements
 
-The Express app should be located under the path `server/app.js` and export the `app` object (`module.exports = app;`).
+The Express app is located in `app.js` and exports the `app` object (`module.exports = app;`).
 
 - The server should run on port `8080` serve the react app on `http://localhost:8080/` and expose those API endpoints:
   - [GET] api/tickets - returns an array of all tickets in the collection `tickets` in your mongoDB atlas database. If called with [query param](https://en.wikipedia.org/wiki/Query_string) `searchText` the API will filter only tickets that have a title including a [case-insensitive](https://en.wikipedia.org/wiki/Case_sensitivity) version of the `searchText` param
-  - [POST] api/tickets/[:ticketId](https://stackoverflow.com/a/20089634/10839175)/done - Sets `done` property to `true` for the given ticketId
-  - [POST] api/tickets/[:ticketId](https://stackoverflow.com/a/20089634/10839175)/undone - Sets `done` property to `false` for the given ticketId
+  - [PATCH] api/tickets/[:ticketId](https://stackoverflow.com/a/20089634/10839175)/done - Sets `done` property to `true` for the given ticketId
+  - [PATCH] api/tickets/[:ticketId](https://stackoverflow.com/a/20089634/10839175)/undone - Sets `done` property to `false` for the given ticketId
 
-## Requirements Client
+## Client Requirements
 
 - The app title should be `Tickets Manager` with a custom [favicon](https://en.wikipedia.org/wiki/Favicon). You can create one [here](https://favicon.io/)
 - The app should load (from backend) and show all Tickets.
@@ -75,10 +75,9 @@ The Express app should be located under the path `server/app.js` and export the 
    Whenever you want to re-deploy, run `git push heroku dev:main` again
 
 1. Add a link to your deployed app to `README.md`
-1. Open a PR from your work branch to the unchanged main branch
+1. Open a PR from your work branch to the unchanged main branch (**and leave it open!**)
 1. Invite `Cyber4sPopo` as a [collaborator](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository) to your repo 👮
 1. Make sure [Issues](https://www.youtube.com/watch?v=vTULg-7xycs) are enabled in your repo
-1. Create a Pull Request from the new brunch into `main` in your duplicated repository
 
 ## Grading policy
 
