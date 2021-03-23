@@ -6,16 +6,18 @@
   "scripts": {
     "seed": "node seedDB.js",
     "dev": "nodemon index.js",
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "node_modules/.bin/jest --verbose",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.12.1"
+    "mongoose": "^5.12.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@suvelocity/tester": "^1.0.2",
