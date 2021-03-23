@@ -11,6 +11,7 @@ In this project you will create a Ticket Manager Web Application, with the [MERN
 1. Install the project dependencies by running `npm install` from the `root` folder _and_ the `client` folder
 1. Create a new branch `dev`
 1. Create 2 new databases in your [mongoDB Atlas](https://www.mongodb.com/cloud/atlas) account: `TicketManager` and `TicketManagerTest`. Create a collection `tickets` in each
+1. In [mongoDB Atlas](https://www.mongodb.com/cloud/atlas) go to Database Access and give your user [admin privileges](https://docs.atlas.mongodb.com/security-add-mongodb-users/#modify-database-users)
 1. Edit `example.env` - Rename it to [`.env`](https://www.freecodecamp.org/news/nodejs-custom-env-files-in-your-apps-fa7b3e67abe1/) and paste your Mongo connection strings. Should be similar to this:
 
    `mongodb+srv://fullstacknitzo:<password>@cluster0.f8jpd.mongodb.net/<DatabaseName>?retryWrites=true&w=majority`
@@ -51,7 +52,7 @@ The Express app is located in `app.js` and exports the `app` object (`module.exp
 - The Ticket component should have className `ticket` and can look similar to this: ![ticketcomponent](./readme-files/ticketcomponent.png)
 - App ticket data (received from the server) might contain `label` property (an array of strings). add those tags to the UI using elements having the `label` class. Use the following style as an example: ![tags](./readme-files/tags.png)
   PS: feel free to add more label strings to the data (`seeds/tickets/tickets.json`) if you need. (Remember to re-seed!)
-- The app should have input with id `searchInput`. This input should request the server on `onChange` with relevant `searchText` param and update the list accordingly
+- The app should have search input with id `searchInput`. This input should request the server on `onChange` with relevant `searchText` param and update the list accordingly
 - Add a hide button with className `hideTicketButton` that will hide the tickets from view. Add a counter of number of hiding tickets, this counter should have a `hideTicketsCounter` className.
 - Add a button to restore the hidden ticket list on click with the id `restoreHideTickets` ![hide](./readme-files/hideit.gif)
 
