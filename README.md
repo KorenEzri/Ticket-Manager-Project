@@ -8,7 +8,7 @@ In this project you will create a Ticket Manager Web Application, with the [MERN
 
 1. [Import](https://github.com/new/import) this repository into your account. Make sure to select the _private_ option
 1. Clone your new repository to your computer
-1. Install the project dependencies by running `npm install` from the client folder _and_ the server folder
+1. Install the project dependencies by running `npm install` from the `root` folder _and_ the `client` folder
 1. Create a new branch `dev`
 1. Create 2 new databases in your [mongoDB Atlas](https://www.mongodb.com/cloud/atlas) account: `TicketManager` and `TicketManagerTest`. Create a collection `tickets` in each
 1. Edit `example.env` - Rename it to [`.env`](https://www.freecodecamp.org/news/nodejs-custom-env-files-in-your-apps-fa7b3e67abe1/) and paste your Mongo connection strings. Should be similar to this:
@@ -16,7 +16,7 @@ In this project you will create a Ticket Manager Web Application, with the [MERN
    `mongodb+srv://fullstacknitzo:<password>@cluster0.f8jpd.mongodb.net/<DatabaseName>?retryWrites=true&w=majority`
 
 1. Add a [github secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to your repo. Name it `ENV_FILE` and paste in it the content of the `.env` file you created in the previous step
-1. `Seeding` - Run the command `npm run seed` from your `server` directory to [seed](https://en.wikipedia.org/wiki/Database_seeding) your DB. It will populate it with a pre made data which is located in `seeds/tickets/tickets.json`
+1. `Seeding` - Run the command `npm run seed` from your `root` directory to [seed](https://en.wikipedia.org/wiki/Database_seeding) your DB. It will populate it with a pre made data which is located in `seeds/tickets/tickets.json`
 
    Ps. **Please**, do _not_ change any of the data in `tickets.JSON` (except for the labels). The tests rely on this data.
 
@@ -32,7 +32,7 @@ We have created automated tests for your convenience, use it to check your progr
 Note that the automated tests rely on your code having the exact class names and Ids as specified in the [Client requirements section](#Requirements Client).
 We encourage you to add your own tests.
 
-- To run the _server tests_ simply run `npm run test` on server folder
+- To run the _server and client tests_ simply run `npm run test` on `root` folder
 - To run the _client tests_ make sure your development server (the React app) is running on port 3000 (via the `npm start` script) and then run `npm run test` from client folder
 
 ## Backend Requirements
@@ -40,15 +40,15 @@ We encourage you to add your own tests.
 The Express app is located in `app.js` and exports the `app` object (`module.exports = app;`).
 
 - The server should run on port `8080` serve the react app on `http://localhost:8080/` and expose those API endpoints:
-  - [GET] api/tickets - returns an array of all tickets in the collection `tickets` in your mongoDB atlas database. If called with [query param](https://en.wikipedia.org/wiki/Query_string) `searchText` the API will filter only tickets that have a title including a [case-insensitive](https://en.wikipedia.org/wiki/Case_sensitivity) version of the `searchText` param
-  - [PATCH] api/tickets/[:ticketId](https://stackoverflow.com/a/20089634/10839175)/done - Sets `done` property to `true` for the given ticketId
-  - [PATCH] api/tickets/[:ticketId](https://stackoverflow.com/a/20089634/10839175)/undone - Sets `done` property to `false` for the given ticketId
+  - [GET] `api/tickets` - returns an array of all tickets in the collection `tickets` in your mongoDB atlas database. If called with [query param](https://en.wikipedia.org/wiki/Query_string) `searchText` the API will filter only tickets that have a title including a [case-insensitive](https://en.wikipedia.org/wiki/Case_sensitivity) version of the `searchText` param
+  - [PATCH] `api/tickets/[:ticketId]`(https://stackoverflow.com/a/20089634/10839175)/done - Sets `done` property to `true` for the given ticketId - should return `{updated: true}` if succeed
+  - [PATCH] `api/tickets/[:ticketId]`(https://stackoverflow.com/a/20089634/10839175)/undone - Sets `done` property to `false` for the given ticketId - should return `{updated: true}` if succeed
 
 ## Client Requirements
 
 - The app title should be `Tickets Manager` with a custom [favicon](https://en.wikipedia.org/wiki/Favicon). You can create one [here](https://favicon.io/)
 - The app should load (from backend) and show all Tickets.
-- The Ticket component should have className `ticket` and should match this appearance: ![ticketcomponent](./readme-files/ticketcomponent.png)
+- The Ticket component should have className `ticket` and can look similar to this: ![ticketcomponent](./readme-files/ticketcomponent.png)
 - App ticket data (received from the server) might contain `label` property (an array of strings). add those tags to the UI using elements having the `label` class. Use the following style as an example: ![tags](./readme-files/tags.png)
   PS: feel free to add more label strings to the data (`seeds/tickets/tickets.json`) if you need. (Remember to re-seed!)
 - The app should have input with id `searchInput`. This input should request the server on `onChange` with relevant `searchText` param and update the list accordingly
