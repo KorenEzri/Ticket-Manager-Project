@@ -1,4 +1,29 @@
-.restore-button {
+.counters {
+  background: linear-gradient(
+    90deg,
+    rgb(77, 31, 184) 36%,
+    rgba(125, 49, 208, 1) 100%,
+    rgba(77, 31, 184, 1) 100%
+  );
+  padding: 1vw;
+  color: whitesmoke;
+  letter-spacing: 1px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 4px;
+  width: 11.5vw;
 }
-.counter-default {
+.restore-button {
+  transition: 600ms;
+}
+
+.restore-button:hover {
+  transition: 600ms;
+  background: rgb(40, 42, 187);
+  background: linear-gradient(
+    90deg,
+    rgba(40, 42, 187, 1) 0%,
+    rgba(77, 31, 184, 1) 36%,
+    rgba(125, 49, 208, 1) 100%,
+    rgba(77, 31, 184, 1) 100%
+  );
 }

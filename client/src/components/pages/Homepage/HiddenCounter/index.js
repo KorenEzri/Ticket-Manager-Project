@@ -11,7 +11,8 @@ const useStyles = makeStyles({
     boxShadow: "0 3px 5px 2px rgba(108, 135, 207, .3)",
     color: "white",
     height: 48,
-    padding: "0 30px",
+    padding: "0 2vw",
+    cursor: "pointer",
   },
 });
 
@@ -23,16 +24,6 @@ export default function HiddenCounter({
   const classes = useStyles();
   return (
     <div>
-      <div
-        className={classNames({
-          "counter-default": true,
-        })}
-      >
-        <p>
-          Hidden: <span id="hideTicketsCounter">{hiddenCount}</span>
-        </p>
-        <p>Total: {allTicketsLength}</p>
-      </div>
       <button
         id="restoreHideTickets"
         className={`${classes.restoreButton} ${classNames({
@@ -44,6 +35,16 @@ export default function HiddenCounter({
       >
         Restore tickets
       </button>
+      <div
+        className={classNames({
+          "counter-default": true,
+        })}
+      >
+        <p className="counters">
+          Hidden: <span id="hideTicketsCounter">{hiddenCount}</span>
+        </p>
+        <p className="counters">Total: {allTicketsLength}</p>
+      </div>
     </div>
   );
 }
