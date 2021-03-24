@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAAA,AAAA,YAAY,CAAC;EACX,gBAAgB,EAAE,yBAAyB;EAC3C,SAAS,EAAE,IAAI;EACf,MAAM,EAAE,IAAI;CACb",
     "sources": [
         "Searchbox.scss"
     ],

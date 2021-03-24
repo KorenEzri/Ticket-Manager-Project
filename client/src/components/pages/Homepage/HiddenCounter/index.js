@@ -15,17 +15,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function HiddenCounter({ hiddenCount, restoreAll }) {
+export default function HiddenCounter({
+  hiddenCount,
+  restoreAll,
+  allTicketsLength,
+}) {
   const classes = useStyles();
   return (
     <div>
       <div
-        id="hideTicketsCounter"
         className={classNames({
           "counter-default": true,
         })}
       >
-        {hiddenCount}
+        <p>
+          Hidden: <span id="hideTicketsCounter">{hiddenCount}</span>
+        </p>
+        <p>Total: {allTicketsLength}</p>
       </div>
       <button
         id="restoreHideTickets"

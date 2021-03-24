@@ -34,7 +34,11 @@ export default function Homepage({ ticketList, setTicketList }) {
   return (
     <div className="homepage-wrapper">
       <div className="counter-wrapper">
-        <HiddenCounter hiddenCount={hiddenCount} restoreAll={restoreAll} />
+        <HiddenCounter
+          hiddenCount={hiddenCount}
+          restoreAll={restoreAll}
+          allTicketsLength={ticketList.length}
+        />
       </div>
       <div className="ticket_list-wrapper">
         <TicketList ticketList={ticketList} hideTicket={hideTicket} />

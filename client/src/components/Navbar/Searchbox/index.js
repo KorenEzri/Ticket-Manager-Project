@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
   searchBox: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: "35ch",
+      marginTop: "-20px",
     },
   },
 }));
@@ -37,8 +38,8 @@ export default function Searchbox({ setTicketList }) {
         value={textInputValue}
         onChange={sendSearchQuery}
         autoComplete="off"
-        variant="outlined"
-        label="Search"
+        variant="filled"
+        label="Search a ticket"
       />
     </div>
   );
