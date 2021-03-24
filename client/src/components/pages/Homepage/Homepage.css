@@ -1,0 +1,13 @@
+.counter-wrapper {
+  margin-left: 30px;
+}
+
+.ticket_list-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60%;
+  text-align: justify;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+/*# sourceMappingURL=Homepage.css.map */

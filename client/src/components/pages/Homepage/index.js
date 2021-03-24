@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import "./Homepage.css";
 import TicketList from "../../TicketList/index";
 import HiddenCounter from "./HiddenCounter/index";
 import network from "../../../network";

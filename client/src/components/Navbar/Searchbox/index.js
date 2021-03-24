@@ -1,8 +1,21 @@
 import React from "react";
+import "./Searchbox.css";
+import { fade, makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import network from "../../../network";
+import TextField from "@material-ui/core/TextField";
+
+const useStyles = makeStyles((theme) => ({
+  searchBox: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+  },
+}));
 
 export default function Searchbox({ setTicketList }) {
+  const classes = useStyles();
   const [textInputValue, setTextInputValue] = useState("");
 
   const sendSearchQuery = async (searchInput) => {
@@ -17,13 +30,16 @@ export default function Searchbox({ setTicketList }) {
     }
   };
   return (
-    <input
-      type="text"
-      placeholder="Search"
-      id="searchInput"
-      value={textInputValue}
-      onChange={sendSearchQuery}
-      autoComplete="off"
-    />
+    <div className={classes.searchBox}>
+      <TextField
+        type="text"
+        id="searchInput"
+        value={textInputValue}
+        onChange={sendSearchQuery}
+        autoComplete="off"
+        variant="outlined"
+        label="Search"
+      />
+    </div>
   );
 }

@@ -1,0 +1,10 @@
+* {
+  list-style-type: none;
+}
+
+.ticket {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid black;
+}
+/*# sourceMappingURL=TicketList.css.map */

@@ -1,11 +1,37 @@
 import React from "react";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
+
+import "./HiddenCounter.css";
+const useStyles = makeStyles({
+  restoreButton: {
+    background: "linear-gradient(45deg, #007bb8 30%, #0061a7 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(108, 135, 207, .3)",
+    color: "white",
+    height: 48,
+    padding: "0 30px",
+  },
+});
 
 export default function HiddenCounter({ hiddenCount, restoreAll }) {
+  const classes = useStyles();
   return (
     <div>
-      <div id="hideTicketsCounter">{hiddenCount}</div>
+      <div
+        id="hideTicketsCounter"
+        className={classNames({
+          "counter-default": true,
+        })}
+      >
+        {hiddenCount}
+      </div>
       <button
         id="restoreHideTickets"
+        className={`${classes.restoreButton} ${classNames({
+          "restore-button": true,
+        })}`}
         onClick={async () => {
           await restoreAll();
         }}
