@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const bodyParser = require("body-parser");
 const Ticket = require("../mongo/models/ticket");
-const mongoose = require("mongoose");
 const tickets = Router();
 
 tickets.use(
@@ -12,21 +11,26 @@ tickets.use(
 tickets.use(bodyParser.json());
 
 tickets.get("/:searchText", async (req, res) => {
-  if (req.params) {
-    const { searchText } = req.params;
-    try {
-      if (searchText) {
-        const requestedTicketsFromDB = await Ticket.find({
-          title: { $regex: searchText, $options: "i" },
-        });
-        res.status(200).send(requestedTicketsFromDB);
-      } else {
-        const allTickets = await Ticket.find({});
-        res.status(200).send(allTickets);
-      }
-    } catch ({ message }) {
-      console.log(message);
-    }
+  const { searchText } = req.params.searchText;
+  try {
+    const requestedTicketsFromDB = await Ticket.find({
+      title: { $regex: `${searchText}`, $options: "i" },
+    });
+    res.status(200).send(requestedTicketsFromDB);
+  } catch ({ message }) {
+    console.log(message);
+    res.status(400).send("request failed");
+    console.log(message);
+  }
+});
+
+tickets.get("/", async (req, res) => {
+  try {
+    const allTickets = await Ticket.find({});
+    res.status(200).send(allTickets);
+  } catch ({ message }) {
+    console.log(message);
+    res.status(400).send("request failed");
   }
 });
 

@@ -6,7 +6,7 @@
   "scripts": {
     "seed": "node seedDB.js",
     "dev": "nodemon index.js",
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "node_modules/.bin/jest --verbose",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
