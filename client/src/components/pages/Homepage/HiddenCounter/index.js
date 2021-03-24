@@ -29,8 +29,13 @@ export default function HiddenCounter({
         className={`${classes.restoreButton} ${classNames({
           "restore-button": true,
         })}`}
-        onClick={async () => {
-          await restoreAll();
+        onClick={(e) => {
+          const target = e.target;
+          target.classList.add("restore-button-clicked");
+          setTimeout(() => {
+            target.classList.remove("restore-button-clicked");
+          }, 1000);
+          restoreAll(e);
         }}
       >
         Restore tickets
