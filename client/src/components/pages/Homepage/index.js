@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import TicketList from "../../TicketList/index";
+import Navbar from "../../Navbar/index";
 import network from "../../../network";
-const baseUrl = `/api/tickets/`;
+const baseUrl = `/api/tickets`;
 
 export default function Homepage() {
   const [ticketList, setTicketList] = useState([]);
@@ -16,7 +17,7 @@ export default function Homepage() {
 
   return (
     <div className="homepage-wrapper">
-      <div className="ticket_list-component">
+      <div className="ticket_list-wrapper">
         <TicketList ticketList={ticketList} />
       </div>
     </div>
