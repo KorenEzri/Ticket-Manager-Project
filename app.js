@@ -18,14 +18,13 @@ app.get("/api/tickets", async (req, res) => {
   const { searchText } = req.query;
   if (searchText) {
     try {
-      const requestedTicketsFromDB = await Ticket.find({
+      const requestedTickets = await Ticket.find({
         title: { $regex: `${searchText}`, $options: "i" },
       });
-      res.status(200).send(requestedTicketsFromDB);
+      res.status(200).send(requestedTickets);
     } catch ({ message }) {
       console.log(message);
       res.status(400).send("request failed");
-      console.log(message);
     }
   } else {
     try {
