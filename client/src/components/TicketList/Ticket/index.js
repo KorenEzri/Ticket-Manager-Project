@@ -25,7 +25,7 @@ export default function Ticket({ ticket, hideTicket }) {
             }}
           >
             {firstSentenceAndRestOfContent[0]}{" "}
-            {!exapndCollapseIcon ? (
+            {exapndCollapseIcon ? (
               <ExpandMoreIcon className={"expand-collapse"} />
             ) : (
               <ExpandLessIcon className={"expand-collapse"} />
@@ -34,11 +34,19 @@ export default function Ticket({ ticket, hideTicket }) {
           <p className="ticket_content">{firstSentenceAndRestOfContent[1]}</p>
         </details>
       </div>
-      <p className="ticket_email">{`${ticket.userEmail}`}</p>{" "}
-      <p className="ticket_done">{`${ticket.done}`} </p>
-      <p className="ticket_date">{`${ticket.creationTime}`}</p>
+      <p className="ticket_email">
+        <span className="tag-span">Email: </span>
+        {`${ticket.userEmail}`}
+      </p>{" "}
+      <p className="ticket_done">
+        <span className="tag-span">Done: </span>
+        {`${ticket.done}`}{" "}
+      </p>
+      <p className="ticket_date">
+        <span className="tag-span">Created at: </span>
+        {`${ticket.creationTime}`}
+      </p>
       <ul>
-        {" "}
         <Label labels={ticket.labels} />
       </ul>
       <button

@@ -7,14 +7,54 @@
   transition: 600ms;
   margin-top: 12px;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid #fffefe;
+  background-color: #d8e7f5;
+}
+
+.ticket:hover {
+  background-color: aliceblue;
+  -webkit-transition: 600ms;
+  transition: 600ms;
+}
+
+.ticket:hover .tag-span {
+  -webkit-transition: 600ms;
+  transition: 600ms;
+  background-color: #618ff3;
+}
+
+.tag-span {
+  -webkit-transition: 600ms;
+  transition: 600ms;
+  background-color: rgba(46, 107, 238, 0.842);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  letter-spacing: 1px;
+  padding: 1px;
+  border-radius: 4px;
+  margin-right: 3px;
+  font-size: 16px !important;
+  color: whitesmoke !important;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.ticket_title {
+  font-size: 18px;
+  margin-top: 3px;
+  font-weight: 700;
+  color: #941515;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .ticket_content-div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgba(245, 222, 179, 0.466);
 }
 
 .ticket_content-div .ticket_content-summary {
@@ -23,14 +63,50 @@
 }
 
 .ticket_content-div .ticket_content {
-  margin-top: -10.5px;
+  margin-top: -13px;
   margin-bottom: 1px;
   padding: 6px;
 }
 
-.expand-collapse {
+.ticket_content-div details[open] summary ~ * {
+  -webkit-animation: sweep 0.5s ease-in-out;
+          animation: sweep 0.5s ease-in-out;
+}
+
+@-webkit-keyframes sweep {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.ticket_content-div .expand-collapse {
   float: right;
   position: relative;
   top: 5px;
+}
+
+.ticket_email {
+  font-size: 18px;
+}
+
+.ticket_done {
+  font-size: 18px;
+  color: #d915e7;
+}
+
+.ticket_date {
+  font-size: 18px;
 }
 /*# sourceMappingURL=TicketList.css.map */

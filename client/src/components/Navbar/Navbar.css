@@ -8,5 +8,9 @@
 
 .navbar {
   background-color: #6a71db;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 /*# sourceMappingURL=Navbar.css.map */

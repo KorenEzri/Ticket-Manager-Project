@@ -1,0 +1,16 @@
+.label {
+  position: relative;
+  float: right;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin: 4px;
+  background-color: rgba(134, 142, 246, 0.657);
+  padding: 4px;
+  top: -6px;
+  border-radius: 4px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+/*# sourceMappingURL=Label.css.map */
