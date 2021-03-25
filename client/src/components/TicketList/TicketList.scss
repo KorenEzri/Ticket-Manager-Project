@@ -3,7 +3,41 @@
 }
 
 .ticket {
+  transition: 600ms;
   margin-top: 12px;
   padding: 12px;
   border: 1px solid black;
+}
+.ticket_title {
+}
+
+.ticket_content-div {
+  display: flex;
+  background-color: rgba(245, 222, 179, 0.466);
+
+  .ticket_details {
+  }
+  .ticket_content-summary {
+    cursor: pointer;
+    padding: 6px;
+  }
+  .ticket_content-summary:hover {
+  }
+  .ticket_content {
+    margin-top: -10.5px;
+    margin-bottom: 1px;
+    padding: 6px;
+  }
+}
+
+.ticket_email {
+}
+.ticket_done {
+}
+.ticket_date {
+}
+.expand-collapse {
+  float: right;
+  position: relative;
+  top: 5px;
 }

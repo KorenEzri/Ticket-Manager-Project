@@ -3,8 +3,34 @@
 }
 
 .ticket {
+  -webkit-transition: 600ms;
+  transition: 600ms;
   margin-top: 12px;
   padding: 12px;
   border: 1px solid black;
+}
+
+.ticket_content-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: rgba(245, 222, 179, 0.466);
+}
+
+.ticket_content-div .ticket_content-summary {
+  cursor: pointer;
+  padding: 6px;
+}
+
+.ticket_content-div .ticket_content {
+  margin-top: -10.5px;
+  margin-bottom: 1px;
+  padding: 6px;
+}
+
+.expand-collapse {
+  float: right;
+  position: relative;
+  top: 5px;
 }
 /*# sourceMappingURL=TicketList.css.map */

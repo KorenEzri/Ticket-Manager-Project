@@ -4,6 +4,8 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import network from "../../../network";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
+let cancelToken;
 
 const useStyles = makeStyles((theme) => ({
   searchBox: {
@@ -23,8 +25,14 @@ export default function Searchbox({ setTicketList }) {
   const sendSearchQuery = async (searchInput) => {
     const input = searchInput.target.value;
     setTextInputValue(input);
+    if (cancelToken) {
+      cancelToken.cancel("Operation canceled due to new request.");
+    }
+    cancelToken = axios.CancelToken.source();
     try {
-      const { data } = await network.get(`/api/tickets?searchText=${input}`);
+      const { data } = await network.get(`/api/tickets?searchText=${input}`, {
+        cancelToken: cancelToken.token,
+      });
       console.log(data);
       setTicketList(data);
     } catch ({ message }) {
