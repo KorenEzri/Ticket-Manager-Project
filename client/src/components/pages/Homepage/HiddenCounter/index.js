@@ -1,11 +1,13 @@
 import React from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 
 import "./HiddenCounter.css";
 const useStyles = makeStyles({
   restoreButton: {
-    background: "linear-gradient(45deg, #007bb8 30%, #0061a7 90%)",
+    background: "#282abb",
+    background:
+      "linear-gradient(90deg, #282abb 0%, #4d1fb8 36%, #7d31d0 100%, #4d1fb8, 100% )",
     border: 0,
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(108, 135, 207, .3)",
@@ -13,6 +15,9 @@ const useStyles = makeStyles({
     height: 48,
     padding: "0 2vw",
     cursor: "pointer",
+    "&:hover": {
+      padding: "0 5vw",
+    },
   },
 });
 

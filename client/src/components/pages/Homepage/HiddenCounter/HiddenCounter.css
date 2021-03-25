@@ -22,12 +22,17 @@
   transition: 600ms;
 }
 
-.restore-button:hover {
+.restore-button {
   -webkit-transition: 600ms;
   transition: 600ms;
   background: #282abb;
   background: -webkit-gradient(linear, left top, right top, from(#282abb), color-stop(36%, #4d1fb8), color-stop(100%, #7d31d0), to(#4d1fb8));
   background: linear-gradient(90deg, #282abb 0%, #4d1fb8 36%, #7d31d0 100%, #4d1fb8 100%);
+}
+
+.restore-button:hover {
+  -webkit-transition: 600ms;
+  transition: 600ms;
 }
 
 .restore-button-clicked {
