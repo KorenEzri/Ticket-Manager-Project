@@ -3,8 +3,10 @@
 }
 
 .ticket {
+  -webkit-box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
+  box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
   transition: 600ms;
-  margin-top: 12px;
+  margin-top: 32px;
   padding: 12px;
   border: 1px solid rgb(255, 254, 254);
   background-color: rgb(216, 231, 245);
@@ -39,10 +41,12 @@
 .ticket_content-div {
   display: flex;
   .ticket_content-summary {
+    word-break: break-all;
     cursor: pointer;
     padding: 6px;
   }
   .ticket_content {
+    word-break: break-all;
     margin-top: -13px;
     margin-bottom: 1px;
     padding: 6px;

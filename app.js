@@ -16,37 +16,36 @@ app.use(bodyParser.json());
 
 app.get("/api/tickets", async (req, res) => {
   const { searchText } = req.query;
-  if (searchText) {
-    try {
-      const requestedTickets = await Ticket.find({
-        title: { $regex: `${searchText}`, $options: "i" },
-      });
-      res.status(200).send(requestedTickets);
-    } catch ({ message }) {
-      console.log(message);
-      res.status(400).send("request failed");
-    }
-  } else {
-    try {
-      const allTickets = await Ticket.find({});
-      res.status(200).send(allTickets);
-    } catch ({ message }) {
-      console.log(message);
-      res.status(400).send("request failed");
-    }
+  try {
+    const requestedTickets = await Ticket.find(
+      !searchText
+        ? {}
+        : {
+            $or: [
+              { title: { $regex: `${searchText}`, $options: "i" } },
+              { labels: { $regex: `${searchText}`, $options: "i" } },
+            ],
+          }
+    );
+    res.status(200).send(requestedTickets);
+  } catch ({ message }) {
+    console.log(message);
+    res.status(400).send("request failed");
   }
 });
 
 app.patch("/api/tickets/:tickedId/done", async (req, res) => {
   try {
     const { tickedId } = req.params;
-    const foundTicket = await Ticket.find({ _id: tickedId });
-    const isDone = foundTicket[0].done;
+    const foundTicket = await Ticket.findById(tickedId);
+    const isDone = foundTicket.done;
     if (!isDone) {
-      foundTicket[0].done = true;
-      await Ticket.replaceOne({ _id: tickedId }, foundTicket[0]);
+      foundTicket.done = true;
+      await Ticket.replaceOne({ _id: tickedId }, foundTicket);
+      res.send({ updated: true });
+    } else {
+      res.send({ updated: false });
     }
-    res.send({ updated: true });
   } catch ({ message }) {
     console.log(message);
     res.status(400).send("update failed");
@@ -56,13 +55,15 @@ app.patch("/api/tickets/:tickedId/done", async (req, res) => {
 app.patch("/api/tickets/:tickedId/undone", async (req, res) => {
   try {
     const { tickedId } = req.params;
-    const foundTicket = await Ticket.find({ _id: tickedId });
-    const isDone = foundTicket[0].done;
+    const foundTicket = await Ticket.findById({ _id: tickedId });
+    const isDone = foundTicket.done;
     if (isDone) {
-      foundTicket[0].done = false;
-      await Ticket.replaceOne({ _id: tickedId }, foundTicket[0]);
+      foundTicket.done = false;
+      await Ticket.replaceOne({ _id: tickedId }, foundTicket);
+      res.send({ updated: true });
+    } else {
+      res.send({ updated: false });
     }
-    res.send({ updated: true });
   } catch ({ message }) {
     console.log(message);
     res.status(400).send("update failed");

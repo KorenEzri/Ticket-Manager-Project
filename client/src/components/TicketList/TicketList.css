@@ -3,9 +3,11 @@
 }
 
 .ticket {
+  -webkit-box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
+  box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
   -webkit-transition: 600ms;
   transition: 600ms;
-  margin-top: 12px;
+  margin-top: 32px;
   padding: 12px;
   border: 1px solid #fffefe;
   background-color: #d8e7f5;
@@ -58,11 +60,13 @@
 }
 
 .ticket_content-div .ticket_content-summary {
+  word-break: break-all;
   cursor: pointer;
   padding: 6px;
 }
 
 .ticket_content-div .ticket_content {
+  word-break: break-all;
   margin-top: -13px;
   margin-bottom: 1px;
   padding: 6px;

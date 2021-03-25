@@ -9,6 +9,8 @@ const baseUrl = `/api/tickets`;
 export default function Homepage({ ticketList, setTicketList }) {
   const [hiddenCount, setHiddenCount] = useState(0);
   const [restoreBin, setRestoreBin] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+
   const hideTicket = (ticket) => {
     const updatedTicketList = ticketList.filter(
       (ticketFromList) => ticketFromList.title !== ticket.title
@@ -18,9 +20,23 @@ export default function Homepage({ ticketList, setTicketList }) {
   };
   const restoreAll = () => {
     if (hiddenCount > 0) {
-      setTicketList(restoreBin);
       setHiddenCount(0);
+    } else if (isFiltered) {
+      setIsFiltered(false);
     }
+    setTicketList(restoreBin);
+  };
+  const filterTicketsByLabel = (label) => {
+    const filteredArray = [];
+    restoreBin.forEach((ticket) => {
+      if (ticket.labels.includes(label)) {
+        filteredArray.push(ticket);
+      }
+      setIsFiltered(true);
+      setTimeout(() => {
+        setTicketList(filteredArray);
+      }, 800);
+    });
   };
 
   useEffect(() => {
@@ -41,7 +57,11 @@ export default function Homepage({ ticketList, setTicketList }) {
         />
       </div>
       <div className="ticket_list-wrapper">
-        <TicketList ticketList={ticketList} hideTicket={hideTicket} />
+        <TicketList
+          ticketList={ticketList}
+          hideTicket={hideTicket}
+          filterTicketsByLabel={filterTicketsByLabel}
+        />
       </div>
     </div>
   );

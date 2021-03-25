@@ -4,6 +4,12 @@
   width: 11.2vw;
 }
 
+.filterbox {
+  position: relative;
+  width: 10vw;
+  float: right;
+}
+
 .ticket_list-wrapper {
   margin-left: auto;
   margin-right: auto;

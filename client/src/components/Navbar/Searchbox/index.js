@@ -11,9 +11,10 @@ const useStyles = makeStyles((theme) => ({
   searchBox: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "35ch",
+      width: "28vw",
       marginTop: "-22px",
       marginLeft: "12px",
+      float: "right",
     },
   },
 }));
@@ -33,7 +34,6 @@ export default function Searchbox({ setTicketList }) {
       const { data } = await network.get(`/api/tickets?searchText=${input}`, {
         cancelToken: cancelToken.token,
       });
-      console.log(data);
       setTicketList(data);
     } catch ({ message }) {
       console.log(message);
@@ -48,7 +48,7 @@ export default function Searchbox({ setTicketList }) {
         onChange={sendSearchQuery}
         autoComplete="off"
         variant="filled"
-        label="Search a ticket"
+        label="Search by tags or title"
       />
     </div>
   );

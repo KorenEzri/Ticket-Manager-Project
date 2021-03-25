@@ -18,7 +18,7 @@
   transition: 600ms;
 }
 
-.restore-button:hover {
+.restore-button {
   transition: 600ms;
   background: rgb(40, 42, 187);
   background: linear-gradient(
@@ -28,6 +28,10 @@
     rgba(125, 49, 208, 1) 100%,
     rgba(77, 31, 184, 1) 100%
   );
+}
+
+.restore-button:hover {
+  transition: 600ms;
 }
 
 .restore-button-clicked {

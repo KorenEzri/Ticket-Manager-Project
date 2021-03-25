@@ -14,11 +14,13 @@ tickets.get("/:searchText", async (req, res) => {
   const { searchText } = req.params.searchText;
   try {
     const requestedTicketsFromDB = await Ticket.find({
-      title: { $regex: `${searchText}`, $options: "i" },
+      $or: [
+        { title: { $regex: `${searchText}`, $options: "i" } },
+        { labels: `${searchText}` },
+      ],
     });
     res.status(200).send(requestedTicketsFromDB);
   } catch ({ message }) {
-    console.log(message);
     res.status(400).send("request failed");
     console.log(message);
   }
