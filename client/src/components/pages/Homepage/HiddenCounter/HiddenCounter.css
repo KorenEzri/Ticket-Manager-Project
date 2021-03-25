@@ -46,6 +46,21 @@
   animation-fill-mode: both;
 }
 
+.expand-collapse {
+  border-radius: 90%;
+  -webkit-transition: 600ms;
+  transition: 600ms;
+  padding: 10px 9px 5px 9px;
+}
+
+.expand-collapse:hover {
+  -webkit-transition: 600ms;
+  transition: 600ms;
+  padding: 10px 9px 5px 9px;
+  border-radius: 90%;
+  background-color: rgba(184, 184, 184, 0.753);
+}
+
 @-webkit-keyframes bounceIn {
   0%,
   20%,

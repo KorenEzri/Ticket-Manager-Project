@@ -12,4 +12,10 @@ body {
     margin-top: unset;
   }
 }
+
+@media (max-height: 768px) {
+  body {
+    margin-top: unset;
+  }
+}
 /*# sourceMappingURL=App.css.map */

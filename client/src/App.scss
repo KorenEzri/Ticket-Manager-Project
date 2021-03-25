@@ -7,4 +7,7 @@ body {
   @media (max-width: 768px) {
     margin-top: unset;
   }
+  @media (max-height: 768px) {
+    margin-top: unset;
+  }
 }

@@ -15,4 +15,7 @@
   @media (max-width: 768px) {
     display: none !important;
   }
+  @media (max-height: 768px) {
+    position: unset !important;
+  }
 }

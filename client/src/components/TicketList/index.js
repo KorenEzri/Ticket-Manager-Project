@@ -6,9 +6,15 @@ export default function TicketList({
   ticketList,
   hideTicket,
   filterTicketsByLabel,
+  setShowHelp,
 }) {
   return (
-    <div className="wrapper">
+    <div
+      className="wrapper"
+      onClick={() => {
+        setShowHelp(true);
+      }}
+    >
       <ul className="ticket-list">
         {ticketList.map((ticket, index) => {
           return (

@@ -5,6 +5,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import "./HiddenCounter.css";
 const useStyles = makeStyles({
@@ -29,6 +30,7 @@ export default function HiddenCounter({
   hiddenCount,
   restoreAll,
   allTicketsLength,
+  filterTicketsByUndone,
 }) {
   const classes = useStyles();
   return (
@@ -49,35 +51,7 @@ export default function HiddenCounter({
       >
         Restore tickets
       </button>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Label Placement</FormLabel>
-        <FormGroup aria-label="position" row>
-          <FormControlLabel
-            value="top"
-            control={<Checkbox color="primary" />}
-            label="Top"
-            labelPlacement="top"
-          />
-          <FormControlLabel
-            value="start"
-            control={<Checkbox color="primary" />}
-            label="Start"
-            labelPlacement="start"
-          />
-          <FormControlLabel
-            value="bottom"
-            control={<Checkbox color="primary" />}
-            label="Bottom"
-            labelPlacement="bottom"
-          />
-          <FormControlLabel
-            value="end"
-            control={<Checkbox color="primary" />}
-            label="End"
-            labelPlacement="end"
-          />
-        </FormGroup>
-      </FormControl>
+
       <div
         className={classNames({
           "counter-default": true,
@@ -88,6 +62,15 @@ export default function HiddenCounter({
         </p>
         <p className="counters">Total: {allTicketsLength}</p>
       </div>
+      <FormControlLabel
+        value="end"
+        control={<Checkbox color="primary" />}
+        label="Filter by undone"
+        labelPlacement="end"
+        onClick={() => {
+          filterTicketsByUndone();
+        }}
+      />
     </div>
   );
 }

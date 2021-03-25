@@ -27,16 +27,17 @@ export default function Ticket({ ticket, hideTicket, filterTicketsByLabel }) {
             }}
           >
             {firstSentence}
-            {!exapndCollapseIcon && (
-              <ExpandMoreIcon className={"expand-collapse"} />
+            {!exapndCollapseIcon ? (
+              <div className={"expand-collapse"}>
+                <ExpandMoreIcon />
+              </div>
+            ) : (
+              <div className={"expand-collapse"}>
+                <ExpandLessIcon />
+              </div>
             )}
           </summary>
-          <p className="ticket_content">
-            {restOfContent}
-            {exapndCollapseIcon && (
-              <ExpandLessIcon className={"expand-collapse"} />
-            )}
-          </p>
+          <p className="ticket_content">{restOfContent}</p>
         </details>
       </div>
       <p className="ticket_email">
