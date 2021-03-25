@@ -38,7 +38,6 @@
 }
 .ticket_content-div {
   display: flex;
-
   .ticket_content-summary {
     cursor: pointer;
     padding: 6px;
@@ -66,12 +65,9 @@
   }
 }
 .ticket_email {
-  font-size: 18px;
 }
 .ticket_done {
-  font-size: 18px;
   color: #d915e7;
 }
 .ticket_date {
-  font-size: 18px;
 }

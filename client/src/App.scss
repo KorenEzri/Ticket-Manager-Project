@@ -3,4 +3,8 @@
 }
 body {
   overflow-x: hidden;
+  margin-top: 10vh;
+  @media (max-width: 768px) {
+    margin-top: unset;
+  }
 }

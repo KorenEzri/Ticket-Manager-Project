@@ -4,5 +4,12 @@
 
 body {
   overflow-x: hidden;
+  margin-top: 10vh;
+}
+
+@media (max-width: 768px) {
+  body {
+    margin-top: unset;
+  }
 }
 /*# sourceMappingURL=App.css.map */

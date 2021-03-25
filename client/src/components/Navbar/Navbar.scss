@@ -8,4 +8,9 @@
 .navbar {
   background-color: rgb(106, 113, 219);
   user-select: none;
+  position: fixed !important;
+  top: 0;
+  @media (max-width: 768px) {
+    display: none !important;
+  }
 }
