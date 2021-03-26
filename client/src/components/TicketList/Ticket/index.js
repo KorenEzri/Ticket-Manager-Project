@@ -96,7 +96,21 @@ export default function Ticket({ ticket, manageTickets }) {
                 )}
               </summary>
               <p className="ticket_content">{restOfContent}</p>
-              <p className="ticket_correspondences">{ticket.correspondences}</p>
+              <p className="ticket_correspondences">
+                {ticket.correspondences.map((correspondence, index) => {
+                  if (!correspondence) return;
+                  return (
+                    <div className={"response-div"}>
+                      <p className="correspondence_date">
+                        At {ticket.lastUpdated}:
+                      </p>
+                      <li key={`Corr:${index}`} className="correspondence">
+                        {correspondence}
+                      </li>
+                    </div>
+                  );
+                })}
+              </p>
             </details>
           </div>
           <p className="ticket_email">
@@ -147,12 +161,11 @@ export default function Ticket({ ticket, manageTickets }) {
             <p className="ticket_content">{ticket.replies}</p>
           )}
           <TextField
-            label="Message"
+            label="Reply"
             type="text"
             multiline
             rows={16}
-            defaultValue={`At ${new Date()},\n
-`}
+            defaultValue={``}
             variant="outlined"
             onChange={HandleTextChange}
           />
