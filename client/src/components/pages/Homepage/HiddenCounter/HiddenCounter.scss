@@ -11,11 +11,13 @@
   letter-spacing: 1px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 4px;
-  width: 11.5vw;
+  width: 8vw;
   box-shadow: 1px 1px 11px 1px #000000be;
+  font-size: 12px;
 }
 
 .restore-button {
+  font-size: 16px;
   transition: 600ms;
   user-select: none;
   background: rgb(40, 42, 187);
@@ -41,11 +43,11 @@
 .expand-collapse {
   border-radius: 90%;
   transition: 600ms;
-  padding: 10px 9px 5px 9px;
+  padding: 10px 10px 5px 9px;
 }
 .expand-collapse:hover {
-  transition: 600ms;
-  padding: 10px 9px 5px 9px;
+  transition: 500ms;
+  padding: 10px 10px 5px 9px;
   border-radius: 90%;
   background-color: rgba(184, 184, 184, 0.753);
 }

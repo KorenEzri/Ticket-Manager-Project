@@ -26,7 +26,6 @@ const sendMail = async (message) => {
 communications.post("/", async (req, res) => {
   const {
     data = {
-      id,
       content,
       correspondences,
       done,
@@ -37,7 +36,7 @@ communications.post("/", async (req, res) => {
       lastUpdated,
     },
   } = req.body;
-  await Ticket.updateOne({ id: data.id }, data);
+  await Ticket.updateOne({ title: data.title }, data);
   const allTickets = await Ticket.find({});
   sendMail(data);
   res.status(200).send(allTickets);

@@ -42,16 +42,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Ticket({ ticket, manageTickets }) {
   const classes = useStyles();
-  const [textValue, setTextValue] = useState(ticket.content);
-  const [done, setDoneValue] = useState(ticket.done);
-  const [mailValue, setMailValue] = useState(ticket.userEmail);
+  const [textValue, setTextValue] = useState("");
+  const [done, setDoneValue] = useState(Boolean);
   const [exapndCollapseIcon, setExpandCollapseIcon] = useState(false);
   const HandleTextChange = (event) => {
     setTextValue(event.target.value);
   };
-  const handleMailChange = (event) => {
-    setMailValue(event.target.value);
-  };
+
   const handleBooleanChange = (event) => {
     setDoneValue(event.target.value);
   };
@@ -96,21 +93,19 @@ export default function Ticket({ ticket, manageTickets }) {
                 )}
               </summary>
               <p className="ticket_content">{restOfContent}</p>
-              <p className="ticket_correspondences">
-                {ticket.correspondences.map((correspondence, index) => {
-                  if (!correspondence) return;
-                  return (
-                    <div className={"response-div"}>
-                      <p className="correspondence_date">
-                        At {ticket.lastUpdated}:
-                      </p>
-                      <li key={`Corr:${index}`} className="correspondence">
-                        {correspondence}
-                      </li>
-                    </div>
-                  );
-                })}
-              </p>
+              {ticket.correspondences.map((correspondence, index) => {
+                if (!correspondence) return;
+                return (
+                  <span className={"response"} key={`correspondence${index}`}>
+                    <p className="correspondence_date">
+                      At {ticket.lastUpdated}:
+                    </p>
+                    <li key={`Corr:${index}`} className="correspondence">
+                      {correspondence}
+                    </li>
+                  </span>
+                );
+              })}
             </details>
           </div>
           <p className="ticket_email">
@@ -155,10 +150,18 @@ export default function Ticket({ ticket, manageTickets }) {
         <div className={classes.contentField}>
           <h5>Original ticket:</h5>
           <p className="ticket_content">{ticket.content}</p>
-          <h5>Past correspondences:</h5>
-          {ticket.correspondences && (
-            <p className="ticket_content">{ticket.replies}</p>
-          )}
+          {ticket.correspondences[0] && <h5>Past correspondences:</h5>}
+          {ticket.correspondences.map((correspondence, index) => {
+            if (!correspondence) return;
+            return (
+              <span className={"response"} key={`correspondence${index}`}>
+                <p className="correspondence_date">At {ticket.lastUpdated}:</p>
+                <li key={`Corr:${index}`} className="correspondence">
+                  {correspondence}
+                </li>
+              </span>
+            );
+          })}
           <TextField
             label="Reply"
             type="text"
@@ -174,9 +177,8 @@ export default function Ticket({ ticket, manageTickets }) {
               type="text"
               multiline
               rows={1}
-              defaultValue={`${ticket.userEmail}`}
+              defaultValue={ticket.userEmail}
               variant="outlined"
-              onChange={handleMailChange}
             />
           </div>
           <div className={classes.selectDiv}>
@@ -202,14 +204,16 @@ export default function Ticket({ ticket, manageTickets }) {
                 content: ticket.content,
                 correspondences: [textValue].concat(ticket.correspondences),
                 done,
-                userEmail: mailValue,
+                userEmail: ticket.userEmail,
                 lastUpdated: new Date(),
               };
               try {
+                manageTickets.setLoading(true);
                 const { data } = await network.post("/api/communications", {
                   data: updatedTicketData,
                 });
                 manageTickets.handleTicketList(data);
+                manageTickets.setLoading(false);
               } catch ({ message }) {
                 console.log(message);
               }

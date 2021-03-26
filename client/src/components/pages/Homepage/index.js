@@ -4,6 +4,7 @@ import "./Homepage.css";
 import TicketList from "../../TicketList/index";
 import HiddenCounter from "./HiddenCounter/index";
 import ExplainerCard from "../../ExplainerCards/HowToEdit/index";
+import Loader from "react-loader";
 import network from "../../../network";
 import classNames from "classnames";
 const baseUrl = `/api/tickets`;
@@ -15,6 +16,7 @@ export default function Homepage({ ticketList, setTicketList }) {
   const [showHelp, showHelpCards] = useState(false);
   const helperRef = useRef(null);
   const [isEditing, setEditing] = useState(false);
+  const [loaded, setLoading] = useState(false);
 
   const handleTicketList = (list) => {
     setRestoreBin(list);
@@ -77,9 +79,7 @@ export default function Homepage({ ticketList, setTicketList }) {
         filteredArray.push(ticket);
       }
       setIsFiltered(true);
-      setTimeout(() => {
-        setTicketList(filteredArray);
-      }, 800);
+      setTicketList(filteredArray);
     });
   };
   const manageTickets = {
@@ -90,6 +90,8 @@ export default function Homepage({ ticketList, setTicketList }) {
     showHelpCards,
     isEditing,
     handleEditing,
+    setLoading,
+    loaded,
   };
 
   useEffect(() => {
@@ -97,9 +99,11 @@ export default function Homepage({ ticketList, setTicketList }) {
       if (isEditing) {
         return;
       }
+      setLoading(false);
       const { data } = await network.get(`${baseUrl}`);
       setTicketList(data);
       setRestoreBin(data);
+      setLoading(true);
     })();
   }, [setTicketList, isEditing]);
 
@@ -124,7 +128,9 @@ export default function Homepage({ ticketList, setTicketList }) {
         />
       </div>
       <div className="ticket_list-wrapper">
-        <TicketList manageTickets={manageTickets} />
+        <Loader loaded={loaded}>
+          <TicketList manageTickets={manageTickets} />
+        </Loader>
       </div>
     </div>
   );

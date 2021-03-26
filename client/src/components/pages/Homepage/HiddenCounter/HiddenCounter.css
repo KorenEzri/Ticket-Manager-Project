@@ -10,12 +10,14 @@
   letter-spacing: 1px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 4px;
-  width: 11.5vw;
+  width: 8vw;
   -webkit-box-shadow: 1px 1px 11px 1px #000000be;
           box-shadow: 1px 1px 11px 1px #000000be;
+  font-size: 12px;
 }
 
 .restore-button {
+  font-size: 16px;
   -webkit-transition: 600ms;
   transition: 600ms;
   -webkit-user-select: none;
@@ -42,13 +44,13 @@
   border-radius: 90%;
   -webkit-transition: 600ms;
   transition: 600ms;
-  padding: 10px 9px 5px 9px;
+  padding: 10px 10px 5px 9px;
 }
 
 .expand-collapse:hover {
-  -webkit-transition: 600ms;
-  transition: 600ms;
-  padding: 10px 9px 5px 9px;
+  -webkit-transition: 500ms;
+  transition: 500ms;
+  padding: 10px 10px 5px 9px;
   border-radius: 90%;
   background-color: rgba(184, 184, 184, 0.753);
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import "./TicketList.css";
 import Ticket from "./Ticket/index";
+import Loader from "react-loader";
 
 export default function TicketList({ manageTickets }) {
   return (

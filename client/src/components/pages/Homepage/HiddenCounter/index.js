@@ -43,7 +43,7 @@ export default function HiddenCounter({
           restoreAll(e);
         }}
       >
-        Restore tickets
+        Restore
       </button>
 
       <div
@@ -59,7 +59,7 @@ export default function HiddenCounter({
       <FormControlLabel
         value="end"
         control={<Checkbox color="primary" />}
-        label="Filter by undone"
+        label="Undone only"
         labelPlacement="end"
         onClick={() => {
           filterTicketsByUndone();
