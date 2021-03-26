@@ -17,6 +17,8 @@ export default function Homepage({ ticketList, setTicketList }) {
   const helperRef = useRef(null);
   const [isEditing, setEditing] = useState(false);
   const [loaded, setLoading] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const [i, setIndex] = useState(3);
 
   const handleTicketList = (list) => {
     setRestoreBin(list);
@@ -82,6 +84,23 @@ export default function Homepage({ ticketList, setTicketList }) {
       setTicketList(filteredArray);
     });
   };
+  const handleScrollEvent = () => {
+    const offSet = window.pageYOffset;
+    const pageScrollLimit = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight
+    );
+    if (offSet > pageScrollLimit - 960) {
+      setShowMore(true);
+      setTimeout(() => {
+        setIndex(i + 3);
+        setShowMore(false);
+      }, 800);
+    }
+  };
   const manageTickets = {
     ticketList,
     handleTicketList,
@@ -90,8 +109,9 @@ export default function Homepage({ ticketList, setTicketList }) {
     showHelpCards,
     isEditing,
     handleEditing,
-    setLoading,
-    loaded,
+    i,
+    setIndex,
+    showMore,
   };
 
   useEffect(() => {
@@ -105,7 +125,10 @@ export default function Homepage({ ticketList, setTicketList }) {
       setRestoreBin(data);
       setLoading(true);
     })();
-  }, [setTicketList, isEditing]);
+  }, [setTicketList, isEditing, setIndex]);
+  window.onscroll = () => {
+    handleScrollEvent();
+  };
 
   return (
     <div className="homepage-wrapper">
