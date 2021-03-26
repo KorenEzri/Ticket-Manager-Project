@@ -12,7 +12,7 @@ export default function Homepage({ ticketList, setTicketList }) {
   const [hiddenCount, setHiddenCount] = useState(0);
   const [restoreBin, setRestoreBin] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
+  const [showHelp, showHelpCards] = useState(false);
   const helperRef = useRef(null);
   const [isEditing, setEditing] = useState(false);
   const handleEditing = (ticket, done) => {
@@ -62,6 +62,9 @@ export default function Homepage({ ticketList, setTicketList }) {
   const filterTicketsByUndone = () => {
     if (isEditing) {
       return;
+    } else if (isFiltered) {
+      restoreAll();
+      return;
     }
     const filteredArray = [];
     restoreBin.forEach((ticket) => {
@@ -74,6 +77,14 @@ export default function Homepage({ ticketList, setTicketList }) {
       }, 800);
     });
   };
+  const manageTickets = {
+    ticketList,
+    hideTicket,
+    filterTicketsByLabel,
+    showHelpCards,
+    isEditing,
+    handleEditing,
+  };
   useEffect(() => {
     (async () => {
       const { data } = await network.get(`${baseUrl}`);
@@ -85,6 +96,7 @@ export default function Homepage({ ticketList, setTicketList }) {
   return (
     <div className="homepage-wrapper">
       <div
+        id="explain-cards-div"
         ref={helperRef}
         className={classNames({
           "explainer-edit": true,
@@ -102,14 +114,7 @@ export default function Homepage({ ticketList, setTicketList }) {
         />
       </div>
       <div className="ticket_list-wrapper">
-        <TicketList
-          ticketList={ticketList}
-          hideTicket={hideTicket}
-          filterTicketsByLabel={filterTicketsByLabel}
-          setShowHelp={setShowHelp}
-          isEditing={isEditing}
-          handleEditing={handleEditing}
-        />
+        <TicketList manageTickets={manageTickets} />
       </div>
     </div>
   );

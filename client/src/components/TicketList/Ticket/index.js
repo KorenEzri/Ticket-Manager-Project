@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+import network from "../../../network";
 
 const useStyles = makeStyles((theme) => ({
   contentField: {
@@ -25,38 +26,44 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1vw",
     marginTop: "-4vh",
   },
+  CancelButton: {
+    "& > *": {
+      margin: theme.spacing(0),
+    },
+    float: "right",
+    marginRight: "16vw",
+    marginTop: "-4vh",
+  },
   selectDiv: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
 }));
 
-export default function Ticket({
-  ticket,
-  hideTicket,
-  filterTicketsByLabel,
-  isEditing,
-  handleEditing,
-}) {
+const getFirstSentence = (text) => {
+  const splatParagraph = text.split(".");
+  const first = splatParagraph.slice(0, 2).join(".") + ".";
+  const rest = splatParagraph.slice(2).join(".");
+  return { first, rest };
+};
+
+export default function Ticket({ ticket, manageTickets }) {
   const classes = useStyles();
-  const [value, setValue] = useState("Controlled");
-  const [bool, setBool] = useState(ticket.done);
+  const [textValue, setTextValue] = useState(ticket.content);
+  const [done, setDoneValue] = useState(ticket.done);
+  const [mailValue, setMailValue] = useState(ticket.userEmail);
+  const [exapndCollapseIcon, setExpandCollapseIcon] = useState(false);
 
   const HandleTextChange = (event) => {
-    setValue(event.target.value);
+    setTextValue(event.target.value);
+  };
+  const handleMailChange = (event) => {
+    setMailValue(event.target.value);
   };
   const handleBooleanChange = (event) => {
-    setBool(event.target.value);
+    setDoneValue(event.target.value);
   };
 
-  const getFirstSentence = (text) => {
-    const splatParagraph = text.split(".");
-    const first = splatParagraph.slice(0, 2).join(".") + ".";
-    const rest = splatParagraph.slice(2).join(".");
-    return { first, rest };
-  };
-
-  const [exapndCollapseIcon, setExpandCollapseIcon] = useState(false);
   const { first: firstSentence, rest: restOfContent } = getFirstSentence(
     ticket.content
   );
@@ -64,10 +71,10 @@ export default function Ticket({
     <li
       className="ticket"
       onDoubleClick={() => {
-        handleEditing(ticket);
+        manageTickets.handleEditing(ticket);
       }}
     >
-      {!isEditing ? (
+      {!manageTickets.isEditing ? (
         <div>
           <p className="ticket_title">{`${ticket.title}`}</p>
           <div className="ticket_content-div">
@@ -109,13 +116,13 @@ export default function Ticket({
           <ul>
             <Label
               labels={ticket.labels}
-              filterTicketsByLabel={filterTicketsByLabel}
+              filterTicketsByLabel={manageTickets.filterTicketsByLabel}
             />
           </ul>
           <button
             className="hideTicketButton"
             onClick={() => {
-              hideTicket(ticket);
+              manageTickets.hideTicket(ticket);
             }}
           >
             Hide Ticket
@@ -124,45 +131,75 @@ export default function Ticket({
       ) : (
         <div className={classes.contentField}>
           <TextField
-            id="outlined-multiline-static"
             label="Message"
+            type="text"
             multiline
             rows={16}
-            defaultValue={`${ticket.content} \n\n Reply: `}
+            defaultValue={` ${ticket.content} \n\n At ${new Date()}, \n  
+Reply: `}
             variant="outlined"
             onChange={HandleTextChange}
           />
-          <p className="ticket_email">
+          <div className="ticket_email">
             <TextField
-              id="outlined-multiline-static"
               label={<span className="edit-tag-span">Email to:</span>}
+              type="text"
               multiline
               rows={1}
               defaultValue={`${ticket.userEmail}`}
               variant="outlined"
-              onChange={HandleTextChange}
+              onChange={handleMailChange}
             />
-          </p>
-          <p className="ticket_done">
-            <div className={classes.selectDiv}>
+          </div>
+          <div className={classes.selectDiv}>
+            <div className="ticket_done">
               <InputLabel>
                 {<span className="edit-tag-span">Done:</span>}
               </InputLabel>
-              <Select onChange={handleBooleanChange} value={bool}>
+              <Select onChange={handleBooleanChange} value={done} type="select">
                 <MenuItem value={true}>true</MenuItem>
                 <MenuItem value={false}>false</MenuItem>
               </Select>
             </div>
-          </p>
+          </div>
+
           <Button
             variant="contained"
             color="primary"
             className={classes.sendButton}
-            onClick={() => {
-              handleEditing(null, true);
+            onClick={async () => {
+              const updatedTicketData = {
+                title: ticket.title,
+                labels: ticket.labels,
+                creationTime: ticket.creationTime,
+                content: textValue,
+                done,
+                userEmail: mailValue,
+                lastUpdated: new Date(),
+              };
+              try {
+                await network.post("/api/communications", {
+                  data: updatedTicketData,
+                });
+              } catch ({ message }) {
+                console.log(message);
+              }
+              manageTickets.handleEditing(null, true);
             }}
+            type="button"
           >
             Save and Send
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.CancelButton}
+            onClick={async () => {
+              manageTickets.handleEditing(null, true);
+            }}
+            type="button"
+          >
+            Cancel
           </Button>
         </div>
       )}
