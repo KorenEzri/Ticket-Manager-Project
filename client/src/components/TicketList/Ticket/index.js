@@ -188,7 +188,7 @@ export default function Ticket({ ticket, manageTickets }) {
                 labels: ticket.labels,
                 creationTime: ticket.creationTime,
                 content: ticket.content,
-                correspondences: textValue,
+                correspondences: [textValue].concat(ticket.correspondences),
                 done,
                 userEmail: mailValue,
                 lastUpdated: new Date(),
