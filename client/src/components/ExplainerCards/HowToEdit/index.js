@@ -40,9 +40,9 @@ export default function ExplainerCard({ helperRef }) {
           Editing a ticket
         </Typography>
         <Typography variant="body1" component="p">
-          To edit a ticket, either click the "Edit ticket" button or double
-          click the ticket itself!
+          To edit a ticket, double click the ticket itself!
         </Typography>
+        <br></br>
         <Typography variant="body1" component="p">
           Keep in mind, editing is only permitted for logged-in users.
         </Typography>

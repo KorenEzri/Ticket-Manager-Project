@@ -132,7 +132,7 @@ export default function Ticket({ ticket, manageTickets }) {
               manageTickets.hideTicket(ticket);
             }}
           >
-            Hide Ticket
+            Hide
           </button>
         </div>
       </li>
