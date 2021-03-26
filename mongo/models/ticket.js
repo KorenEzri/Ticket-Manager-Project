@@ -6,6 +6,7 @@ const ticketSchema = new mongoose.Schema({
   done: Boolean,
   creationTime: Date,
   labels: Array,
+  correspondences: Array,
 });
 
 // ticketSchema.set("toJSON", {
