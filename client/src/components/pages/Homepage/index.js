@@ -14,12 +14,18 @@ export default function Homepage({ ticketList, setTicketList }) {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const helperRef = useRef(null);
-  // const handleShowHelp = () => {
-  //   if (!tag) {
-  //     setShowHelp(true);
-  //     tag = true;
-  //   }
-  // };
+  const [isEditing, setEditing] = useState(false);
+  const handleEditing = (ticket, done) => {
+    if (!done) {
+      setEditing(true);
+    }
+    if (!isEditing) {
+      setTicketList([ticket]);
+    } else if (done) {
+      setEditing(false);
+      setTicketList(restoreBin);
+    }
+  };
   const hideTicket = (ticket) => {
     const updatedTicketList = ticketList.filter(
       (ticketFromList) => ticketFromList.title !== ticket.title
@@ -93,6 +99,8 @@ export default function Homepage({ ticketList, setTicketList }) {
           hideTicket={hideTicket}
           filterTicketsByLabel={filterTicketsByLabel}
           setShowHelp={setShowHelp}
+          isEditing={isEditing}
+          handleEditing={handleEditing}
         />
       </div>
     </div>

@@ -7,6 +7,8 @@ export default function TicketList({
   hideTicket,
   filterTicketsByLabel,
   setShowHelp,
+  isEditing,
+  handleEditing,
 }) {
   return (
     <div
@@ -19,6 +21,8 @@ export default function TicketList({
         {ticketList.map((ticket, index) => {
           return (
             <Ticket
+              isEditing={isEditing}
+              handleEditing={handleEditing}
               ticket={ticket}
               key={index}
               hideTicket={hideTicket}

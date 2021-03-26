@@ -3,6 +3,10 @@
 }
 
 .ticket {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   -webkit-box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
   box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
   -webkit-transition: 600ms;
@@ -42,6 +46,19 @@
           user-select: none;
 }
 
+.edit-tag-span {
+  background-color: rgba(46, 107, 238, 0.842);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding: 1px;
+  border-radius: 4px;
+  margin-right: 0.1px;
+  color: whitesmoke !important;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 .ticket_title {
   font-size: 18px;
   margin-top: 3px;
@@ -60,7 +77,6 @@
 }
 
 .ticket_content-div .ticket_content-summary {
-  word-break: break-all;
   cursor: pointer;
   padding: 6px;
 }
