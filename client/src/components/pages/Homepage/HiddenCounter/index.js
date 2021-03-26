@@ -1,21 +1,18 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
-import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
 import "./HiddenCounter.css";
 const useStyles = makeStyles({
   restoreButton: {
-    background: "#282abb",
+    boxShadow: "1px 1px 11px 1px #000000be",
+    backgroundColor: "#282abb",
     background:
       "linear-gradient(90deg, #282abb 0%, #4d1fb8 36%, #7d31d0 100%, #4d1fb8, 100% )",
     border: 0,
     borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(108, 135, 207, .3)",
     color: "white",
     height: 48,
     padding: "0 2vw",

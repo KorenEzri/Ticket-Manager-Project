@@ -11,13 +11,14 @@ export default function Label({ labels, filterTicketsByLabel }) {
         className="label"
         onClick={(e) => {
           filterTicketsByLabel(label);
-          const target = e.target;
-          const ticket = e.target.parentElement.parentElement.parentElement;
+          const labelTarget = e.target;
+          const ticket =
+            e.target.parentElement.parentElement.parentElement.parentElement;
           ticket.classList.remove("bounceInRight");
-          target.classList.add("flipInX");
+          labelTarget.classList.add("flipInX");
           ticket.classList.add("bounceOutLeft");
           setTimeout(() => {
-            target.classList.remove("flipInX");
+            labelTarget.classList.remove("flipInX");
             ticket.classList.add("bounceInRight");
             ticket.classList.remove("bounceOutLeft");
           }, 1000);

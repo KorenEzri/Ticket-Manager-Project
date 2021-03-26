@@ -1,7 +1,7 @@
 import React from "react";
 import "./Searchbox.css";
-import { fade, makeStyles } from "@material-ui/core/styles";
-import { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { useState } from "react";
 import network from "../../../network";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";

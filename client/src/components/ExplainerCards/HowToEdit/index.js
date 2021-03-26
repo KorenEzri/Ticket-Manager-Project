@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 
 export default function ExplainerCard({ helperRef }) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
   return (
     <Card className={classes.root}>
       <CardContent>

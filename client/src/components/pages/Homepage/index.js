@@ -15,7 +15,6 @@ export default function Homepage({ ticketList, setTicketList }) {
   const [showHelp, setShowHelp] = useState(false);
   const helperRef = useRef(null);
   const [isEditing, setEditing] = useState(false);
-
   const handleEditing = (ticket, done) => {
     if (!done) {
       setEditing(true);
@@ -81,7 +80,7 @@ export default function Homepage({ ticketList, setTicketList }) {
       setTicketList(data);
       setRestoreBin(data);
     })();
-  }, []);
+  }, [setTicketList]);
 
   return (
     <div className="homepage-wrapper">

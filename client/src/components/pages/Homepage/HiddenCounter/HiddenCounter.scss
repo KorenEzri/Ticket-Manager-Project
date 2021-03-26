@@ -12,14 +12,12 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 4px;
   width: 11.5vw;
-}
-.restore-button {
-  user-select: none;
-  transition: 600ms;
+  box-shadow: 1px 1px 11px 1px #000000be;
 }
 
 .restore-button {
   transition: 600ms;
+  user-select: none;
   background: rgb(40, 42, 187);
   background: linear-gradient(
     90deg,

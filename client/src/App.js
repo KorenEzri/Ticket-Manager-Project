@@ -3,8 +3,7 @@ import "./App.css";
 import Homepage from "./components/pages/Homepage/index";
 import Navbar from "./components/Navbar/index";
 import Footer from "./components/Footer/index";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
