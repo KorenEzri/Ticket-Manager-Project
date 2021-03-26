@@ -36,7 +36,7 @@ communications.post("/", async (req, res) => {
       lastUpdated,
     },
   } = req.body;
-  await Ticket.replaceOne({ title: data.title }, data);
+  await Ticket.findOneAndReplace({ title: data.title }, data);
   const allTickets = await Ticket.find({});
   sendMail(data);
   res.status(200).send(allTickets);

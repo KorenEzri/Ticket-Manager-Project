@@ -129,7 +129,6 @@ export default function Ticket({ ticket, manageTickets }) {
       </li>
     );
   }
-
   //ELSE - EDIT MODE
   else {
     return (
