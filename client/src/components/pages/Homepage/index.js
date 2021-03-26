@@ -15,6 +15,11 @@ export default function Homepage({ ticketList, setTicketList }) {
   const [showHelp, showHelpCards] = useState(false);
   const helperRef = useRef(null);
   const [isEditing, setEditing] = useState(false);
+
+  const handleTicketList = (list) => {
+    setRestoreBin(list);
+    setTicketList(list);
+  };
   const handleEditing = (ticket, done) => {
     if (!done) {
       setEditing(true);
@@ -79,19 +84,24 @@ export default function Homepage({ ticketList, setTicketList }) {
   };
   const manageTickets = {
     ticketList,
+    handleTicketList,
     hideTicket,
     filterTicketsByLabel,
     showHelpCards,
     isEditing,
     handleEditing,
   };
+
   useEffect(() => {
     (async () => {
+      if (isEditing) {
+        return;
+      }
       const { data } = await network.get(`${baseUrl}`);
       setTicketList(data);
       setRestoreBin(data);
     })();
-  }, [setTicketList]);
+  }, [setTicketList, isEditing]);
 
   return (
     <div className="homepage-wrapper">

@@ -3,7 +3,8 @@ const Ticket = require("../mongo/models/ticket");
 const communications = Router();
 const nodemailer = require("nodemailer");
 const PASS = process.env.EMAILPWD;
-async function sendEmail(message) {
+
+const sendMail = async (message) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -20,12 +21,13 @@ async function sendEmail(message) {
   });
 
   console.log("Message sent: %s", info.messageId);
-}
+};
 
 communications.post("/", async (req, res) => {
   const {
     data = {
       content,
+      correspondences,
       done,
       userEmail,
       labels,
@@ -36,7 +38,7 @@ communications.post("/", async (req, res) => {
   } = req.body;
   await Ticket.replaceOne({ title: data.title }, data);
   const allTickets = await Ticket.find({});
-  sendEmail(data);
+  sendMail(data);
   res.status(200).send(allTickets);
 });
 

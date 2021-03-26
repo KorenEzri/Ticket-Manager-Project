@@ -40,20 +40,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getFirstSentence = (text) => {
-  const splatParagraph = text.split(".");
-  const first = splatParagraph.slice(0, 2).join(".") + ".";
-  const rest = splatParagraph.slice(2).join(".");
-  return { first, rest };
-};
-
 export default function Ticket({ ticket, manageTickets }) {
   const classes = useStyles();
   const [textValue, setTextValue] = useState(ticket.content);
   const [done, setDoneValue] = useState(ticket.done);
   const [mailValue, setMailValue] = useState(ticket.userEmail);
   const [exapndCollapseIcon, setExpandCollapseIcon] = useState(false);
-
   const HandleTextChange = (event) => {
     setTextValue(event.target.value);
   };
@@ -63,18 +55,23 @@ export default function Ticket({ ticket, manageTickets }) {
   const handleBooleanChange = (event) => {
     setDoneValue(event.target.value);
   };
-
+  const getFirstSentence = (text) => {
+    const splatParagraph = text.split(".");
+    const first = splatParagraph.slice(0, 2).join(".") + ".";
+    const rest = splatParagraph.slice(2).join(".");
+    return { first, rest };
+  };
   const { first: firstSentence, rest: restOfContent } = getFirstSentence(
     ticket.content
   );
-  return (
-    <li
-      className="ticket"
-      onDoubleClick={() => {
-        manageTickets.handleEditing(ticket);
-      }}
-    >
-      {!manageTickets.isEditing ? (
+  if (!manageTickets.isEditing) {
+    return (
+      <li
+        className="ticket"
+        onDoubleClick={() => {
+          manageTickets.handleEditing(ticket);
+        }}
+      >
         <div>
           <p className="ticket_title">{`${ticket.title}`}</p>
           <div className="ticket_content-div">
@@ -91,7 +88,7 @@ export default function Ticket({ ticket, manageTickets }) {
                     <ExpandMoreIcon />
                   </div>
                 ) : (
-                  restOfContent && (
+                  (restOfContent || ticket.correspondences) && (
                     <div className={"expand-collapse"}>
                       <ExpandLessIcon />
                     </div>
@@ -99,6 +96,7 @@ export default function Ticket({ ticket, manageTickets }) {
                 )}
               </summary>
               <p className="ticket_content">{restOfContent}</p>
+              <p className="ticket_correspondences">{ticket.correspondences}</p>
             </details>
           </div>
           <p className="ticket_email">
@@ -128,15 +126,33 @@ export default function Ticket({ ticket, manageTickets }) {
             Hide Ticket
           </button>
         </div>
-      ) : (
+      </li>
+    );
+  }
+
+  //ELSE - EDIT MODE
+  else {
+    return (
+      <li
+        className="ticket"
+        onDoubleClick={() => {
+          manageTickets.handleEditing(ticket);
+        }}
+      >
         <div className={classes.contentField}>
+          <h5>Original ticket:</h5>
+          <p className="ticket_content">{ticket.content}</p>
+          <h5>Past correspondences:</h5>
+          {ticket.correspondences && (
+            <p className="ticket_content">{ticket.replies}</p>
+          )}
           <TextField
             label="Message"
             type="text"
             multiline
             rows={16}
-            defaultValue={` ${ticket.content} \n\n At ${new Date()}, \n  
-Reply: `}
+            defaultValue={`At ${new Date()},\n
+`}
             variant="outlined"
             onChange={HandleTextChange}
           />
@@ -162,7 +178,6 @@ Reply: `}
               </Select>
             </div>
           </div>
-
           <Button
             variant="contained"
             color="primary"
@@ -172,15 +187,17 @@ Reply: `}
                 title: ticket.title,
                 labels: ticket.labels,
                 creationTime: ticket.creationTime,
-                content: textValue,
+                content: ticket.content,
+                correspondences: textValue,
                 done,
                 userEmail: mailValue,
                 lastUpdated: new Date(),
               };
               try {
-                await network.post("/api/communications", {
+                const { data } = await network.post("/api/communications", {
                   data: updatedTicketData,
                 });
+                manageTickets.handleTicketList(data);
               } catch ({ message }) {
                 console.log(message);
               }
@@ -202,7 +219,7 @@ Reply: `}
             Cancel
           </Button>
         </div>
-      )}
-    </li>
-  );
+      </li>
+    );
+  }
 }
