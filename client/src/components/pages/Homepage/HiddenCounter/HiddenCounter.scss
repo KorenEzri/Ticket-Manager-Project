@@ -30,10 +30,6 @@
   );
 }
 
-.restore-button:hover {
-  transition: 600ms;
-}
-
 .restore-button-clicked {
   -webkit-animation-name: bounceIn;
   animation-name: bounceIn;

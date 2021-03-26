@@ -20,9 +20,6 @@ const useStyles = makeStyles({
     height: 48,
     padding: "0 2vw",
     cursor: "pointer",
-    "&:hover": {
-      padding: "0 5vw",
-    },
   },
 });
 

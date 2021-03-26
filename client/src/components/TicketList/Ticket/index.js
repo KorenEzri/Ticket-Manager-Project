@@ -22,15 +22,12 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0),
     },
     float: "right",
-    marginRight: "24px",
-    marginTop: "6px",
+    marginRight: "1vw",
+    marginTop: "-4vh",
   },
   selectDiv: {
     margin: theme.spacing(1),
     minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
   },
 }));
 
@@ -43,9 +40,13 @@ export default function Ticket({
 }) {
   const classes = useStyles();
   const [value, setValue] = useState("Controlled");
-  const handleChange = (event) => {
-    console.log(event.target.value);
+  const [bool, setBool] = useState(ticket.done);
+
+  const HandleTextChange = (event) => {
     setValue(event.target.value);
+  };
+  const handleBooleanChange = (event) => {
+    setBool(event.target.value);
   };
 
   const getFirstSentence = (text) => {
@@ -129,7 +130,7 @@ export default function Ticket({
             rows={16}
             defaultValue={`${ticket.content} \n\n Reply: `}
             variant="outlined"
-            onChange={handleChange}
+            onChange={HandleTextChange}
           />
           <p className="ticket_email">
             <TextField
@@ -139,7 +140,7 @@ export default function Ticket({
               rows={1}
               defaultValue={`${ticket.userEmail}`}
               variant="outlined"
-              onChange={handleChange}
+              onChange={HandleTextChange}
             />
           </p>
           <p className="ticket_done">
@@ -147,9 +148,9 @@ export default function Ticket({
               <InputLabel>
                 {<span className="edit-tag-span">Done:</span>}
               </InputLabel>
-              <Select onChange={handleChange} value={`${ticket.done}`}>
-                <MenuItem value={10}>true</MenuItem>
-                <MenuItem value={20}>false</MenuItem>
+              <Select onChange={handleBooleanChange} value={bool}>
+                <MenuItem value={true}>true</MenuItem>
+                <MenuItem value={false}>false</MenuItem>
               </Select>
             </div>
           </p>

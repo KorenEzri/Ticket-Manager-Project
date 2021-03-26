@@ -15,6 +15,7 @@ export default function Homepage({ ticketList, setTicketList }) {
   const [showHelp, setShowHelp] = useState(false);
   const helperRef = useRef(null);
   const [isEditing, setEditing] = useState(false);
+
   const handleEditing = (ticket, done) => {
     if (!done) {
       setEditing(true);
@@ -34,6 +35,9 @@ export default function Homepage({ ticketList, setTicketList }) {
     setHiddenCount(hiddenCount + 1);
   };
   const restoreAll = () => {
+    if (isEditing) {
+      return;
+    }
     if (hiddenCount > 0) {
       setHiddenCount(0);
     } else if (isFiltered) {
@@ -42,6 +46,9 @@ export default function Homepage({ ticketList, setTicketList }) {
     setTicketList(restoreBin);
   };
   const filterTicketsByLabel = (label) => {
+    if (isEditing) {
+      return;
+    }
     const filteredArray = [];
     restoreBin.forEach((ticket) => {
       if (ticket.labels.includes(label)) {
@@ -54,6 +61,9 @@ export default function Homepage({ ticketList, setTicketList }) {
     });
   };
   const filterTicketsByUndone = () => {
+    if (isEditing) {
+      return;
+    }
     const filteredArray = [];
     restoreBin.forEach((ticket) => {
       if (!ticket.done) {
@@ -65,7 +75,6 @@ export default function Homepage({ ticketList, setTicketList }) {
       }, 800);
     });
   };
-
   useEffect(() => {
     (async () => {
       const { data } = await network.get(`${baseUrl}`);

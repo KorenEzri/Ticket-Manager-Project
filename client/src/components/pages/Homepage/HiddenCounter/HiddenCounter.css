@@ -30,11 +30,6 @@
   background: linear-gradient(90deg, #282abb 0%, #4d1fb8 36%, #7d31d0 100%, #4d1fb8 100%);
 }
 
-.restore-button:hover {
-  -webkit-transition: 600ms;
-  transition: 600ms;
-}
-
 .restore-button-clicked {
   -webkit-animation-name: bounceIn;
   animation-name: bounceIn;
