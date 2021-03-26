@@ -8,6 +8,7 @@ const ticketSchema = new mongoose.Schema({
   creationTime: Date,
   lastUpdated: Date,
   labels: Array,
+  correspondences: Array,
 });
 
 module.exports = mongoose.model("Ticket", ticketSchema);
