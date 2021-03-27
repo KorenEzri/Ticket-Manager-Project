@@ -6,26 +6,26 @@ const helmet = require("helmet");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
+let isValidated = false;
 userManagement.use(cookieParser());
 userManagement.use(helmet());
 userManagement.use(bodyParser.urlencoded({ extended: false }));
-userManagement.use(function (req, res, next) {
-  const cookieName = "loggedIn";
-  var cookie = req.cookies.cookieName;
-  if (!cookie) {
-    res.cookie(cookieName, randomNumber, {
-      maxAge: 2200000,
-      httpOnly: true,
-    });
-  } else {
-    console.log("cookie exists", cookie);
-  }
-  next();
-});
+// userManagement.use(function (req, res, next) {
+//   const cookieName = "loggedIn";
+//   var cookie = req.cookies.cookieName;
+//   if (!cookie && isValidated) {
+//     res.cookie(cookieName, Math.floor(Math.random() * 121), {
+//       maxAge: 2200000,
+//       httpOnly: true,
+//     });
+//   } else {
+//     console.log("cookie exists", cookie);
+//   }
+//   next();
+// });
 userManagement.post("/register", async (req, res) => {
   const saltRounds = 10;
-  const { firstName, lastName, username, birthday, lastLogin } = req.body;
+  const { firstName, lastName, username } = req.body;
   let { password } = req.body;
   try {
     bcrypt.hash(password, saltRounds, async function (err, hash) {
@@ -34,12 +34,12 @@ userManagement.post("/register", async (req, res) => {
         return res.status(400).json({ success: false });
       } else {
         password = hash;
+        console.log(password);
         const user = new User({
           firstName,
           lastName,
           username,
           password,
-          birthday,
         });
         console.log(user);
         await user.save();
@@ -52,8 +52,7 @@ userManagement.post("/register", async (req, res) => {
   }
 });
 
-userManagement.put("/login", async (req, res) => {
-  console.log("ASD");
+userManagement.post("/login", async (req, res) => {
   try {
     let companyValidated = false;
     const { username, password, validation } = req.body;
@@ -61,8 +60,11 @@ userManagement.put("/login", async (req, res) => {
     const companyHash = attemptData.key;
     await bcrypt.compare(validation, companyHash, async function (err, result) {
       if (result == true) {
+        console.log("Key validated successfully.");
+        isValidated = true;
         companyValidated = true;
       } else if (result == false) {
+        console.log("FAILED AT VALIDATION");
         res.status(400).json({ message: `user not found` });
       }
     });
@@ -72,6 +74,7 @@ userManagement.put("/login", async (req, res) => {
       if (result == true && companyValidated) {
         res.redirect("/");
       } else if (result == false) {
+        console.log("failed at user auth");
         res.status(400).json({ message: `user not found` });
       }
     });

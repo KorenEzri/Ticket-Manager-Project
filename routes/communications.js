@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const Ticket = require("../mongo/models/ticket");
+const User = require("../mongo/models/user");
 const communications = Router();
 const ValidationKey = require("../mongo/models/company-validation");
 const nodemailer = require("nodemailer");
@@ -79,6 +80,7 @@ communications.post("/initvalidation", async (req, res) => {
         username: username,
       });
       await ValidationKey.deleteOne({ username: username });
+      console.log(key);
       await key.save();
       res.status(200).send("OK");
     }
@@ -86,16 +88,21 @@ communications.post("/initvalidation", async (req, res) => {
 });
 
 communications.put("/requestvalidation", async (req, res) => {
-  const { email } = req.body;
-  const message = {
-    userEmail: email,
-    title: "Your company validation key",
-    content: `Hello. The following is your company validation key. The key will be valid for fifteen minutes. Please do not share or expose your key in any way. \n \n${initialValidationKey}
+  const { username } = req.body;
+  const foundUser = await User.findOne({ username: username });
+  if (foundUser) {
+    const message = {
+      userEmail: "cyber4sdummyaddress@gmail.com",
+      title: "Your company validation key",
+      content: `Hello. The following is your company validation key for the user ${username}. The key will be valid for fifteen minutes. Please do not share or expose your key in any way. \n \n${initialValidationKey}
     Best regards, \n 
     Ko-manage`,
-  };
-  sendMail(message, "true");
-  res.status(200).send("OK");
+    };
+    sendMail(message, "true");
+    res.status(200).send("OK");
+  } else {
+    res.status(400).send("There was a problem processing the request.");
+  }
 });
 
 module.exports = communications;

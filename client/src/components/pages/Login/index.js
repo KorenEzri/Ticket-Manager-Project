@@ -1,6 +1,5 @@
 import React from "react";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import classNames from "classnames";
@@ -13,27 +12,21 @@ export default function LoginPage() {
   const createValidationKey = async (username) => {
     await network.post(`${baseUrl}/initvalidation`, { username: username });
   };
-  const requestAndSendValidationKey = async (username, email) => {
+  const requestAndSendValidationKey = async (username) => {
     await network.put(`${baseUrl}/requestvalidation`, {
-      email: email,
       username: username,
     });
   };
 
-  const [toggleEmailInput, setToggleEmailInput] = useState(false);
-  const [emailInput, setEmailInput] = useState("");
+  const [toggleKeySent, setToggleKeySent] = useState(false);
   const [textInput, setTextInput] = useState("");
-
-  const HandleMailChange = (event) => {
-    setEmailInput(event.target.value);
-  };
   const HandleTextChange = (event) => {
     setTextInput(event.target.value);
   };
 
   return (
     <div>
-      <form action="/api/usermanagement/login" method="put" autocomplete="off">
+      <form action="/api/usermanagement/login" method="post" autocomplete="off">
         <div className="testbox">
           <h1>Employee Login</h1>
           <div className="user-info">
@@ -68,47 +61,35 @@ export default function LoginPage() {
           </button>
           <button
             className={classNames({
-              "request-key-button": !toggleEmailInput,
-              "send-key-button": toggleEmailInput,
+              "request-key-button": !toggleKeySent,
+              "send-key-button": toggleKeySent,
             })}
             type="button"
             onClick={async (e) => {
-              if (!toggleEmailInput) {
+              if (!toggleKeySent) {
                 if (!textInput) {
                   alert("Please enter your username!");
                   return;
                 }
                 e.target.innerText = "Request";
                 await createValidationKey(textInput);
-                setToggleEmailInput(true);
-              } else if (toggleEmailInput) {
-                if (!emailInput) {
-                  alert("Please enter your email address!");
-                  return;
-                }
+                await requestAndSendValidationKey(textInput);
+                setToggleKeySent(true);
+              } else if (toggleKeySent) {
                 if (!textInput) {
                   alert("Please enter your username!");
                   return;
                 }
-                await requestAndSendValidationKey(textInput, emailInput);
               }
             }}
           >
             Request Key
           </button>
-          {toggleEmailInput && (
-            <form className="submit-validation-key">
-              <div className="email-required">
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  required
-                  onChange={HandleMailChange}
-                />
-                <EmailIcon className="icons" />
-              </div>
-            </form>
+          {toggleKeySent && (
+            <p>
+              An email with the validation key was sent to the admin address
+              associated with your company. Please enter the key to continue.
+            </p>
           )}
         </div>
       </form>
