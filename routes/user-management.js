@@ -4,6 +4,7 @@ const userManagement = Router();
 const helmet = require("helmet");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
+let validated = false;
 
 userManagement.use(helmet());
 userManagement.use(bodyParser.urlencoded({ extended: false }));
@@ -39,32 +40,23 @@ userManagement.post("/register", async (req, res) => {
 
 userManagement.put("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const fileData = await netUtils.readBin("users");
-    let findUser;
-    if (fileData[0].length > 1) {
-      findUser = fileData[0].find((user) => user.username === username);
+    let companyHash;
+    const { username, password, validation } = req.body;
+    if (validated) {
+      companyHash = validation;
     } else {
-      findUser = fileData.find((user) => user.username === username);
+      companyHash = await bcrypt.compare( // REQUEST HASH FROM JSONBIN
+        validation,
+        companyHash,
+        async function (err, result) {
+          if (result == true) {
+            res.status(200).send("validated");
+          } else if (result == false) {
+            res.status(400).json({ message: `user not found` });
+          }
+        }
+      );
     }
-    if (!findUser) {
-      res.status(200).send("User not found!");
-    }
-    const hash = findUser.password;
-    await bcrypt.compare(password, hash, async function (err, result) {
-      if (result == true) {
-        const id = findUser.id;
-        userFile = await netUtils.readBin(id);
-        const user = new controller.User(
-          userFile,
-          findUser.username,
-          findUser.id
-        );
-        res.status(200).send(JSON.stringify(user));
-      } else if (result == false) {
-        res.status(400).json({ message: `user not found` });
-      }
-    });
   } catch (error) {
     console.error(error);
   }

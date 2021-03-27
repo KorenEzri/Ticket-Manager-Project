@@ -17,6 +17,7 @@ export default function LoginPage() {
     // SEND REQUEST TO COMMUNICATIONS, COMMUNICATIONS SENDS REQUEST TO JSONBIN, GETS KEY FROM JSONBIN, SENDS EMAIL TO USER
     network.get();
   };
+
   const [emailInput, requestEmailInput] = useState(false);
   return (
     <div>
