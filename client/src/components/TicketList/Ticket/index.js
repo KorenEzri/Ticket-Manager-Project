@@ -209,12 +209,10 @@ export default function Ticket({ ticket, manageTickets }) {
                 lastUpdated: new Date(),
               };
               try {
-                manageTickets.setLoading(true);
                 const { data } = await network.post("/api/communications", {
                   data: updatedTicketData,
                 });
                 manageTickets.handleTicketList(data);
-                manageTickets.setLoading(false);
               } catch ({ message }) {
                 console.log(message);
               }

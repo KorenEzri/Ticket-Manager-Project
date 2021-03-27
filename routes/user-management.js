@@ -5,10 +5,24 @@ const userManagement = Router();
 const helmet = require("helmet");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
+userManagement.use(cookieParser());
 userManagement.use(helmet());
 userManagement.use(bodyParser.urlencoded({ extended: false }));
-
+userManagement.use(function (req, res, next) {
+  const cookieName = "loggedIn";
+  var cookie = req.cookies.cookieName;
+  if (!cookie) {
+    res.cookie(cookieName, randomNumber, {
+      maxAge: 2200000,
+      httpOnly: true,
+    });
+  } else {
+    console.log("cookie exists", cookie);
+  }
+  next();
+});
 userManagement.post("/register", async (req, res) => {
   const saltRounds = 10;
   const { firstName, lastName, username, birthday, lastLogin } = req.body;
@@ -56,7 +70,6 @@ userManagement.put("/login", async (req, res) => {
     const passwordHash = findUser.password;
     await bcrypt.compare(password, passwordHash, async function (err, result) {
       if (result == true && companyValidated) {
-        console.log("VALIDATED?");
         res.redirect("/");
       } else if (result == false) {
         res.status(400).json({ message: `user not found` });

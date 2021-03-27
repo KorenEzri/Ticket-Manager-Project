@@ -8,6 +8,8 @@ export default function PrivateRoute({
   ticketList,
   setTicketList,
 }) {
+  const cookies = document.cookie;
+  console.log(cookies);
   const condition = true;
   return condition ? (
     <Route

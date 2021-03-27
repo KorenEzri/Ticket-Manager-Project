@@ -57,11 +57,12 @@ export default function HiddenCounter({
         <p className="counters">Total: {allTicketsLength}</p>
       </div>
       <FormControlLabel
+        className="undone-only-div"
         value="end"
         control={<Checkbox color="primary" />}
         label="Undone only"
         labelPlacement="end"
-        onClick={() => {
+        onChange={() => {
           filterTicketsByUndone();
         }}
       />
