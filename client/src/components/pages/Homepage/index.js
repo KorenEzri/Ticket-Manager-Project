@@ -9,7 +9,8 @@ import network from "../../../network";
 import classNames from "classnames";
 const baseUrl = `/api/tickets`;
 
-export default function Homepage({ ticketList, setTicketList }) {
+export default function Homepage() {
+  const [ticketList, setTicketList] = useState([]);
   const [hiddenCount, setHiddenCount] = useState(0);
   const [restoreBin, setRestoreBin] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);

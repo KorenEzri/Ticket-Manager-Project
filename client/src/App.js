@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/index";
 import Footer from "./components/Footer/index";
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./components/pages/PrivateRoute/index";
 
 function App() {
   const [ticketList, setTicketList] = useState([]);
@@ -22,9 +23,7 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/">
-              <Homepage ticketList={ticketList} setTicketList={setTicketList} />
-            </Route>
+            <PrivateRoute path="/" component={Homepage} exact />
           </Switch>
         </Router>
       </div>
