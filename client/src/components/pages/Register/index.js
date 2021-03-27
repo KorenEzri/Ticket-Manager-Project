@@ -1,15 +1,20 @@
 import React from "react";
 import "./Register.css";
 import EmailIcon from "@material-ui/icons/Email";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import LockIcon from "@material-ui/icons/Lock";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
-import CakeIcon from "@material-ui/icons/Cake";
 import GroupIcon from "@material-ui/icons/Group";
-
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 export default function RegisterPage() {
+  const [checked, setChecked] = React.useState(true);
   return (
-    <form action="/api/usermanagement/register" method="post">
+    <form
+      action="/api/usermanagement/register"
+      method="post"
+      autocomplete="off"
+    >
       <div className="testbox">
         <h1>Registration</h1>
         <div className="accounttype">
@@ -20,13 +25,23 @@ export default function RegisterPage() {
             name="account"
             checked
           />
-          <label for="radioOne" className="radio" chec>
-            Personal
-          </label>
+          <FormControlLabel
+            value="end"
+            checked={checked}
+            control={<Checkbox color="primary" />}
+            label="Company"
+            labelPlacement="end"
+          />
           <input type="radio" value="None" id="radioTwo" name="account" />
-          <label for="radioTwo" className="radio">
-            Company
-          </label>
+          <FormControlLabel
+            value="end"
+            control={<Checkbox color="primary" />}
+            label="Personal"
+            labelPlacement="end"
+            disabled
+            checked
+            inputProps={{ "aria-label": "disabled checked checkbox" }}
+          />
         </div>
         <div className="user-info">
           <input type="text" name="email" placeholder="Email" required />
@@ -34,6 +49,7 @@ export default function RegisterPage() {
           <input
             type="text"
             name="firstName"
+            autocomplete="off"
             placeholder="First Name"
             required
           />
@@ -42,13 +58,15 @@ export default function RegisterPage() {
           <GroupIcon className="icons" />
           <input
             type="text"
-            name="birthday"
-            placeholder="Birthday: yy/mm/dddd"
+            name="username"
+            autocomplete="off"
+            placeholder="Username (unique)"
             required
           />
-          <CakeIcon className="icons" />
+          <AccountCircleIcon className="icons" />
           <input
             type="password"
+            autocomplete="off"
             name="password"
             placeholder="Password"
             required
@@ -57,13 +75,21 @@ export default function RegisterPage() {
         </div>
         <div className="gender">
           <input type="radio" value="None" id="male" name="gender" checked />
-          <label for="male" className="radio" chec>
-            Male
-          </label>
+          <FormControlLabel
+            value="end"
+            autocomplete="off"
+            control={<Checkbox color="primary" />}
+            label="Female"
+            labelPlacement="end"
+          />
           <input type="radio" value="None" id="female" name="gender" />
-          <label for="female" className="radio">
-            Female
-          </label>
+          <FormControlLabel
+            value="end"
+            autocomplete="off"
+            control={<Checkbox color="primary" />}
+            label="Male"
+            labelPlacement="end"
+          />
         </div>
         <button className="button" type="submit">
           Register
