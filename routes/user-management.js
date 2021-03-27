@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const User = require("../mongo/models/user");
+const ValidationKey = require("../mongo/models/company-validation");
 const userManagement = Router();
 const helmet = require("helmet");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
-let validated = false;
 
 userManagement.use(helmet());
 userManagement.use(bodyParser.urlencoded({ extended: false }));
@@ -39,24 +39,29 @@ userManagement.post("/register", async (req, res) => {
 });
 
 userManagement.put("/login", async (req, res) => {
+  console.log("ASD");
   try {
-    let companyHash;
+    let companyValidated = false;
     const { username, password, validation } = req.body;
-    if (validated) {
-      companyHash = validation;
-    } else {
-      companyHash = await bcrypt.compare( // REQUEST HASH FROM JSONBIN
-        validation,
-        companyHash,
-        async function (err, result) {
-          if (result == true) {
-            res.status(200).send("validated");
-          } else if (result == false) {
-            res.status(400).json({ message: `user not found` });
-          }
-        }
-      );
-    }
+    const attemptData = await ValidationKey.findOne({ username: username });
+    const companyHash = attemptData.key;
+    await bcrypt.compare(validation, companyHash, async function (err, result) {
+      if (result == true) {
+        companyValidated = true;
+      } else if (result == false) {
+        res.status(400).json({ message: `user not found` });
+      }
+    });
+    const findUser = await User.findOne({ username: username });
+    const passwordHash = findUser.password;
+    await bcrypt.compare(password, passwordHash, async function (err, result) {
+      if (result == true && companyValidated) {
+        console.log("VALIDATED?");
+        res.redirect("/");
+      } else if (result == false) {
+        res.status(400).json({ message: `user not found` });
+      }
+    });
   } catch (error) {
     console.error(error);
   }

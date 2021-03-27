@@ -10,15 +10,27 @@ import "./Login.css";
 const baseUrl = `/api/communications`;
 
 export default function LoginPage() {
-  const createValidationKey = () => {
-    // SEND REQUEST TO COMMUNICATIONS, COMMUNICATIONS CREATES AND SENDS VALIDATION KEY TO JSONDB
+  const createValidationKey = async (username) => {
+    await network.post(`${baseUrl}/initvalidation`, { username: username });
   };
-  const requestAndSendValidationKey = () => {
-    // SEND REQUEST TO COMMUNICATIONS, COMMUNICATIONS SENDS REQUEST TO JSONBIN, GETS KEY FROM JSONBIN, SENDS EMAIL TO USER
-    network.get();
+  const requestAndSendValidationKey = async (username, email) => {
+    await network.put(`${baseUrl}/requestvalidation`, {
+      email: email,
+      username: username,
+    });
   };
 
-  const [emailInput, requestEmailInput] = useState(false);
+  const [toggleEmailInput, setToggleEmailInput] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+  const [textInput, setTextInput] = useState("");
+
+  const HandleMailChange = (event) => {
+    setEmailInput(event.target.value);
+  };
+  const HandleTextChange = (event) => {
+    setTextInput(event.target.value);
+  };
+
   return (
     <div>
       <form action="/api/usermanagement/login" method="put" autocomplete="off">
@@ -28,6 +40,7 @@ export default function LoginPage() {
             <input
               type="text"
               name="username"
+              onChange={HandleTextChange}
               placeholder="Username"
               required
               autocomplete="off"
@@ -55,26 +68,44 @@ export default function LoginPage() {
           </button>
           <button
             className={classNames({
-              "request-key-button": !emailInput,
-              "send-key-button": emailInput,
+              "request-key-button": !toggleEmailInput,
+              "send-key-button": toggleEmailInput,
             })}
             type="button"
             onClick={async (e) => {
-              if (!emailInput) {
-                await createValidationKey();
-                requestEmailInput(true);
+              if (!toggleEmailInput) {
+                if (!textInput) {
+                  alert("Please enter your username!");
+                  return;
+                }
                 e.target.innerText = "Request";
-              } else if (emailInput) {
-                await requestAndSendValidationKey();
+                await createValidationKey(textInput);
+                setToggleEmailInput(true);
+              } else if (toggleEmailInput) {
+                if (!emailInput) {
+                  alert("Please enter your email address!");
+                  return;
+                }
+                if (!textInput) {
+                  alert("Please enter your username!");
+                  return;
+                }
+                await requestAndSendValidationKey(textInput, emailInput);
               }
             }}
           >
             Request Key
           </button>
-          {emailInput && (
+          {toggleEmailInput && (
             <form className="submit-validation-key">
               <div className="email-required">
-                <input type="text" name="email" placeholder="Email" required />
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  required
+                  onChange={HandleMailChange}
+                />
                 <EmailIcon className="icons" />
               </div>
             </form>
