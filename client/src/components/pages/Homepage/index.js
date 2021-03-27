@@ -93,7 +93,7 @@ export default function Homepage({ ticketList, setTicketList }) {
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-    if (offSet > pageScrollLimit - 960) {
+    if (offSet > pageScrollLimit - 960 && !isEditing) {
       setShowMore(true);
       setTimeout(() => {
         setIndex(i + 3);

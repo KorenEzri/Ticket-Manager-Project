@@ -29,4 +29,8 @@
     position: unset !important;
   }
 }
+
+.tool-bar {
+  position: absolute !important;
+}
 /*# sourceMappingURL=Navbar.css.map */
