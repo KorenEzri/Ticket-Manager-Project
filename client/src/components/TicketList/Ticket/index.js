@@ -93,19 +93,20 @@ export default function Ticket({ ticket, manageTickets }) {
                 )}
               </summary>
               <p className="ticket_content">{restOfContent}</p>
-              {ticket.correspondences.map((correspondence, index) => {
-                if (!correspondence) return;
-                return (
-                  <span className={"response"} key={`correspondence${index}`}>
-                    <p className="correspondence_date">
-                      At {ticket.lastUpdated}:
-                    </p>
-                    <li key={`Corr:${index}`} className="correspondence">
-                      {correspondence}
-                    </li>
-                  </span>
-                );
-              })}
+              {ticket.correspondences &&
+                ticket.correspondences.map((correspondence, index) => {
+                  if (!correspondence) return;
+                  return (
+                    <span className={"response"} key={`correspondence${index}`}>
+                      <p className="correspondence_date">
+                        At {ticket.lastUpdated}:
+                      </p>
+                      <li key={`Corr:${index}`} className="correspondence">
+                        {correspondence}
+                      </li>
+                    </span>
+                  );
+                })}
             </details>
           </div>
           <p className="ticket_email">
