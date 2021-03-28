@@ -16,7 +16,6 @@ export default function PrivateRoute({
   const [isValidated, setIsValidated] = useState(validateCookie);
 
   const validateCookies = async () => {
-    console.log(isValidated);
     if (isValidated === null) return false;
     const { data } = await network.get(`/api/usermanagement/${validateCookie}`);
     return data;

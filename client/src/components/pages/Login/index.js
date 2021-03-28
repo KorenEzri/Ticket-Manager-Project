@@ -3,6 +3,7 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import LockIcon from "@material-ui/icons/Lock";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HowToUserAuth from "../../ExplainerCards/HowToUserAuth/index";
+import Navbar from "../../Navbar/index";
 import classNames from "classnames";
 import { useState, useRef } from "react";
 import network from "../../../network";
@@ -29,6 +30,7 @@ export default function LoginPage() {
 
   return (
     <div>
+      <Navbar />
       <div
         className={classNames({
           "explainer-edit": true,

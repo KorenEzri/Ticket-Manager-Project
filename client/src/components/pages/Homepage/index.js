@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import "./Homepage.css";
+import Navbar from "../../Navbar/index";
 import TicketList from "../../TicketList/index";
 import HiddenCounter from "./HiddenCounter/index";
 import ExplainerCard from "../../ExplainerCards/HowToEdit/index";
@@ -133,6 +134,8 @@ export default function Homepage() {
 
   return (
     <div className="homepage-wrapper">
+      <Navbar setTicketList={setTicketList} />
+
       <div
         id="explain-cards-div"
         ref={helperRef}
