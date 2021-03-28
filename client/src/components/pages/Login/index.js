@@ -2,8 +2,9 @@ import React from "react";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import LockIcon from "@material-ui/icons/Lock";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import HowToUserAuth from "../../ExplainerCards/HowToUserAuth/index";
 import classNames from "classnames";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import network from "../../../network";
 import "./Login.css";
 const baseUrl = `/api/communications`;
@@ -20,12 +21,23 @@ export default function LoginPage() {
 
   const [toggleKeySent, setToggleKeySent] = useState(false);
   const [textInput, setTextInput] = useState("");
+  const helperRef = useRef(null);
+
   const HandleTextChange = (event) => {
     setTextInput(event.target.value);
   };
 
   return (
     <div>
+      <div
+        className={classNames({
+          "explainer-edit": true,
+          bounceInUp: true,
+        })}
+        ref={helperRef}
+      >
+        <HowToUserAuth helperRef={helperRef} />
+      </div>
       <form action="/api/usermanagement/login" method="post" autocomplete="off">
         <div className="testbox">
           <h1>Employee Login</h1>

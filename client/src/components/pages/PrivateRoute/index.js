@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
 import network from "../../../network";
+
 export default function PrivateRoute({
   component,
   path,
@@ -8,20 +10,23 @@ export default function PrivateRoute({
   ticketList,
   setTicketList,
 }) {
-  let isValidated;
-
-  const validateCookieValue = async (value) => {
-    isValidated = await network.get(`/api/usermanagement/${value}`);
-  };
   const validateCookie = (document.cookie.match(
     /^(?:.*;)?\s*loggedIn\s*=\s*([^;]+)(?:.*)?$/
   ) || [, null])[1];
+  const [isValidated, setIsValidated] = useState(validateCookie);
 
-  if (validateCookie) {
-    validateCookieValue(validateCookie);
-  }
-  const condition = isValidated;
-  return condition ? (
+  const validateCookies = async () => {
+    console.log(isValidated);
+    if (isValidated === null) return false;
+    const { data } = await network.get(`/api/usermanagement/${validateCookie}`);
+    return data;
+  };
+
+  setTimeout(() => {
+    validateCookies();
+  }, 3000);
+
+  return isValidated ? (
     <Route
       path={path}
       exact={exact}

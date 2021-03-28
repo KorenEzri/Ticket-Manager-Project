@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAC;EACb,eAAe,EAAE,IAAI;CACtB",
+    "sources": [
+        "HowToUserAuth.scss"
+    ],
+    "names": [],
+    "file": "HowToUserAuth.css"
+}

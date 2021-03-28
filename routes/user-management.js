@@ -32,27 +32,7 @@ userManagement.post("/register", async (req, res) => {
         });
         console.log(user);
         await user.save();
-        const cookieName = "loggedIn";
-        const random = Math.floor(Math.random() * 121);
-        const cookie = req.cookies.cookieName;
-        if (!cookie && isValidated) {
-          res.cookie(cookieName, random, {
-            maxAge: 2200000,
-            httpOnly: false,
-          });
-          const newCookie = new Cookie({
-            cookie: "loggedIn",
-            value: random,
-          });
-          try {
-            await newCookie.save();
-          } catch ({ message }) {
-            console.log(message);
-          }
-        } else {
-          console.log("cookie exists", cookie);
-        }
-        res.redirect("/");
+        res.redirect("/login");
       }
     });
   } catch ({ message }) {
@@ -82,8 +62,9 @@ userManagement.post("/login", async (req, res) => {
       if (result == true && companyValidated) {
         const cookieName = "loggedIn";
         const cookie = req.cookies.cookieName;
+        const random = Math.floor(Math.random() * 121);
         if (!cookie && isValidated) {
-          res.cookie(cookieName, Math.floor(Math.random() * 121), {
+          res.cookie(cookieName, random, {
             maxAge: 2200000,
             httpOnly: false,
           });
@@ -92,6 +73,7 @@ userManagement.post("/login", async (req, res) => {
             value: random,
           });
           try {
+            await Cookie.deleteOne({ cookie: "loggedIn" });
             await newCookie.save();
           } catch ({ message }) {
             console.log(message);
@@ -110,9 +92,9 @@ userManagement.post("/login", async (req, res) => {
 });
 
 userManagement.get("/:cookieData", (req, res) => {
-  const cookie = req.params.cookie;
+  const cookieValue = req.params.cookie;
   const currentCookie = Cookie.findOne({ cookie: "loggedIn" });
-  if (currentCookie && currentCookie.value === cookie.value) {
+  if (currentCookie && currentCookie.value === cookieValue) {
     res.status(200).send(true);
   } else {
     res.status(400).send(false);
