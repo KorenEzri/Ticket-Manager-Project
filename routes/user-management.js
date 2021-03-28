@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const User = require("../mongo/models/user");
+const Cookie = require("../mongo/models/cookie");
 const ValidationKey = require("../mongo/models/company-validation");
 const userManagement = Router();
 const helmet = require("helmet");
@@ -7,22 +8,11 @@ const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 let isValidated = false;
+
 userManagement.use(cookieParser());
 userManagement.use(helmet());
 userManagement.use(bodyParser.urlencoded({ extended: false }));
-// userManagement.use(function (req, res, next) {
-//   const cookieName = "loggedIn";
-//   var cookie = req.cookies.cookieName;
-//   if (!cookie && isValidated) {
-//     res.cookie(cookieName, Math.floor(Math.random() * 121), {
-//       maxAge: 2200000,
-//       httpOnly: true,
-//     });
-//   } else {
-//     console.log("cookie exists", cookie);
-//   }
-//   next();
-// });
+
 userManagement.post("/register", async (req, res) => {
   const saltRounds = 10;
   const { firstName, lastName, username } = req.body;
@@ -34,7 +24,6 @@ userManagement.post("/register", async (req, res) => {
         return res.status(400).json({ success: false });
       } else {
         password = hash;
-        console.log(password);
         const user = new User({
           firstName,
           lastName,
@@ -43,6 +32,26 @@ userManagement.post("/register", async (req, res) => {
         });
         console.log(user);
         await user.save();
+        const cookieName = "loggedIn";
+        const random = Math.floor(Math.random() * 121);
+        const cookie = req.cookies.cookieName;
+        if (!cookie && isValidated) {
+          res.cookie(cookieName, random, {
+            maxAge: 2200000,
+            httpOnly: false,
+          });
+          const newCookie = new Cookie({
+            cookie: "loggedIn",
+            value: random,
+          });
+          try {
+            await newCookie.save();
+          } catch ({ message }) {
+            console.log(message);
+          }
+        } else {
+          console.log("cookie exists", cookie);
+        }
         res.redirect("/");
       }
     });
@@ -71,6 +80,25 @@ userManagement.post("/login", async (req, res) => {
     const passwordHash = findUser.password;
     await bcrypt.compare(password, passwordHash, async function (err, result) {
       if (result == true && companyValidated) {
+        const cookieName = "loggedIn";
+        const cookie = req.cookies.cookieName;
+        if (!cookie && isValidated) {
+          res.cookie(cookieName, Math.floor(Math.random() * 121), {
+            maxAge: 2200000,
+            httpOnly: false,
+          });
+          const newCookie = new Cookie({
+            cookie: "loggedIn",
+            value: random,
+          });
+          try {
+            await newCookie.save();
+          } catch ({ message }) {
+            console.log(message);
+          }
+        } else {
+          console.log("cookie exists", cookie);
+        }
         res.redirect("/");
       } else if (result == false) {
         res.status(400).json({ message: `user not found` });
@@ -78,6 +106,16 @@ userManagement.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+  }
+});
+
+userManagement.get("/:cookieData", (req, res) => {
+  const cookie = req.params.cookie;
+  const currentCookie = Cookie.findOne({ cookie: "loggedIn" });
+  if (currentCookie && currentCookie.value === cookie.value) {
+    res.status(200).send(true);
+  } else {
+    res.status(400).send(false);
   }
 });
 
