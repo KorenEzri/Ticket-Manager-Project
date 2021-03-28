@@ -5,20 +5,10 @@ const communications = Router();
 const ValidationKey = require("../mongo/models/company-validation");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
+const { nanoid } = require("nanoid");
 const saltRounds = 10;
 const PASS = process.env.EMAILPWD;
 let initialValidationKey;
-
-const characters =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-const randomStringGenerator = (length) => {
-  let result = " ";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-};
 
 const sendMail = async (message, validator) => {
   const transporter = nodemailer.createTransport({
@@ -68,8 +58,7 @@ communications.post("/", async (req, res) => {
 
 communications.post("/initvalidation", async (req, res) => {
   const { username } = req.body;
-  const randomNumber = Math.floor(Math.random() * 116);
-  initialValidationKey = randomStringGenerator(randomNumber);
+  initialValidationKey = nanoid();
   bcrypt.hash(initialValidationKey, saltRounds, async function (err, hash) {
     if (err) {
       console.error(err);

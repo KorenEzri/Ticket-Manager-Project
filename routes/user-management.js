@@ -64,7 +64,6 @@ userManagement.post("/login", async (req, res) => {
         isValidated = true;
         companyValidated = true;
       } else if (result == false) {
-        console.log("FAILED AT VALIDATION");
         res.status(400).json({ message: `user not found` });
       }
     });
@@ -74,7 +73,6 @@ userManagement.post("/login", async (req, res) => {
       if (result == true && companyValidated) {
         res.redirect("/");
       } else if (result == false) {
-        console.log("failed at user auth");
         res.status(400).json({ message: `user not found` });
       }
     });
