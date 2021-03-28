@@ -27,7 +27,7 @@ Simply visit [this page](https://ko-manager.herokuapp.com/), and get TICKETING!
 ![inf](infinitescroll.gif)
 * Secure - hashing and two-factor authentication via email.
 * Easy-to-use, user-friendly ticket-system.
-* Awesome slicks animations and design
+* Slick animations and design
 * Logging for all correspondences including dates of each reply sent!
 
 
