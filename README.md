@@ -1,11 +1,6 @@
-
-# https://ko-manager.herokuapp.com/
-
 # Ko-manage: a ticket manager by Koren Ben Ezri
 ![](main.PNG)
  
-## [Demonstration](https://youtu.be/e2UCxPgjDpc)
-
 # Introduction
 
 This is a Ticket Manager built with React.js, nodejs and MongoDB. 
