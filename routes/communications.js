@@ -12,9 +12,10 @@ let initialValidationKey;
 
 const sendMail = async (message, validator) => {
   const transporter = nodemailer.createTransport({
-    service: "hotmail",
+    service: "gmail",
+    secure: true,
     auth: {
-      user: "CyberBarbie4s@outlook.com",
+      user: "noreplybarbieshhhhh@gmail.com",
       pass: `${PASS}`,
     },
   });
@@ -81,7 +82,7 @@ communications.put("/requestvalidation", async (req, res) => {
   const foundUser = await User.findOne({ username: username });
   if (foundUser) {
     const message = {
-      userEmail: "CyberFoursour@outlook.com",
+      userEmail: "cyber4sdummyaddress@gmail.com",
       title: "Your company validation key",
       content: `Hello. The following is your company validation key for the user ${username}. The key will be valid for fifteen minutes. Please do not share or expose your key in any way. \n \n${initialValidationKey}
     Best regards, \n 
