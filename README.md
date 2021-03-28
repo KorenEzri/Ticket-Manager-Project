@@ -10,7 +10,7 @@ A couple of the product's most prominent features include:
 ## Security: Two-factor authentication with email OTPs and COOKIES:
 ![pic one](mainintrogif.gif)
 ## User authentication - hashing, cookie management and validation:
-## Full-fledged Ticket system: editing tickets, records and dates for each response, correspondence system and email system (all fully functional): 
+## Full-fledged Ticket system: editing tickets, records and dates for each response, correspondence system and email system: 
 ![gif](editinggif.gif)
 
 
