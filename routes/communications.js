@@ -13,6 +13,7 @@ let initialValidationKey;
 const sendMail = async (message, validator) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
+    secure: true,
     auth: {
       user: "noreplybarbieshhhhh@gmail.com",
       pass: `${PASS}`,
