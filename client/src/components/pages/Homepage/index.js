@@ -4,6 +4,7 @@ import "./Homepage.css";
 import TicketList from "../../TicketList/index";
 import HiddenCounter from "./HiddenCounter/index";
 import ExplainerCard from "../../ExplainerCards/HowToEdit/index";
+import Navbar from "../../Navbar/index";
 import Loader from "react-loader";
 import network from "../../../network";
 import classNames from "classnames";
@@ -133,6 +134,8 @@ export default function Homepage() {
 
   return (
     <div className="homepage-wrapper">
+      <Navbar setTicketList={setTicketList} />
+
       <div
         id="explain-cards-div"
         ref={helperRef}

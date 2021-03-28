@@ -34,6 +34,7 @@ export default function Searchbox({ setTicketList }) {
       const { data } = await network.get(`/api/tickets?searchText=${input}`, {
         cancelToken: cancelToken.token,
       });
+      console.log(data);
       setTicketList(data);
     } catch ({ message }) {
       console.log(message);
