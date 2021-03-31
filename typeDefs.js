@@ -1,15 +1,35 @@
 const { gql } = require("apollo-server-express");
-const { GraphQLObjectType } = require("graphql");
 
 const typeDefs = gql`
-  enum ListName {
-    GROCERY
-    BASKET
-  }
+  scalar Date
   type listitemObj {
-    item: String
-    amount: Int
-    isBought: Boolean
+    title: String
+  content: String
+  correspondences: []
+  userEmail: String
+  done: Boolean
+  creationTime: Date
+  lastUpdated: Date
+  labels: []
+  correspondences: []
+  }
+  type User {
+    firstName: String
+  lastName: String
+  username: String
+  password: String
+  birthday: String
+  lastLogin: Date
+  }
+  type Cookie {
+    cookie String 
+  value: Int
+  createdAt: Date
+  }
+  type ValidationKey {
+    key: String
+  username: String
+  createdAt:  Date
   }
   type Query {
     allListItems(list: ListName): [listitemObj]

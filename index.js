@@ -2,7 +2,7 @@ require("dotenv").config();
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const bodyParser = require("body-parser");
-const morgan = require("morgan")
+const morgan = require("morgan");
 const mongoose = require("mongoose");
 const { resolvers } = require("./resolvers");
 const { typeDefs } = require("./typeDefs");
@@ -35,8 +35,8 @@ const startServer = async () => {
     })
   );
   app.use(bodyParser.json());
-  app.use(morgan("tiny"))
-  
+  app.use(morgan("tiny"));
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,

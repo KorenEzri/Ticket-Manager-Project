@@ -1,4 +1,6 @@
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+//COMMUNICATION ROUTES
 
 const allListItems = gql`
   query allListItems($list: ListName) {
