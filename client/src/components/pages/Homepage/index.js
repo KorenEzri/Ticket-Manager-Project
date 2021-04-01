@@ -6,13 +6,13 @@ import TicketList from "../../TicketList/index";
 import HiddenCounter from "./HiddenCounter/index";
 import ExplainerCard from "../../ExplainerCards/HowToEdit/index";
 import Loader from "react-loader";
-import network from "../../../network";
 import classNames from "classnames";
 import apolloUtils from "../../../apollo-client/apollo-utils";
 import { useApolloClient } from "@apollo/client";
 const baseUrl = `/api/tickets`;
 
 export default function Homepage() {
+  const client = useApolloClient();
   const [ticketList, setTicketList] = useState([]);
   const [hiddenCount, setHiddenCount] = useState(0);
   const [restoreBin, setRestoreBin] = useState([]);
@@ -124,9 +124,17 @@ export default function Homepage() {
         return;
       }
       setLoading(false);
-      const { data } = await network.get(`${baseUrl}`);
-      setTicketList(data);
-      setRestoreBin(data);
+      try {
+        const {
+          data: { allTickets },
+        } = await client.query({
+          query: apolloUtils.allTickets,
+        });
+        setTicketList(allTickets);
+        setRestoreBin(allTickets);
+      } catch ({ message }) {
+        console.log(message);
+      }
       setLoading(true);
     })();
   }, [setTicketList, isEditing, setIndex]);

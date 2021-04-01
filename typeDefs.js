@@ -2,45 +2,44 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   scalar Date
-  type listitemObj {
+  type ticketItem {
     title: String
-  content: String
-  correspondences: []
-  userEmail: String
-  done: Boolean
-  creationTime: Date
-  lastUpdated: Date
-  labels: []
-  correspondences: []
+    content: String
+    correspondences: [String]
+    userEmail: String
+    done: Boolean
+    creationTime: Date
+    lastUpdated: Date
+    labels: [String]
   }
   type User {
     firstName: String
-  lastName: String
-  username: String
-  password: String
-  birthday: String
-  lastLogin: Date
+    lastName: String
+    username: String
+    password: String
+    birthday: String
+    lastLogin: Date
   }
   type Cookie {
-    cookie String 
-  value: Int
-  createdAt: Date
+    cookie: String
+    value: Int
+    createdAt: Date
   }
   type ValidationKey {
     key: String
-  username: String
-  createdAt:  Date
+    username: String
+    createdAt: Date
   }
   type Query {
-    allListItems(list: ListName): [listitemObj]
+    allTickets: [ticketItem]
   }
-  type Mutation {
-    addGroceryItem(item: String): [listitemObj!]
-    addBasketItem(item: String): [listitemObj!]
-    clearList(list: ListName): String
-    deleteOne(list: ListName, item: String): [listitemObj]
-    toggleBought(item: String): [listitemObj!]
-  }
+  # type Mutation {
+  #   addGroceryItem(item: String): [ticketItem!]
+  #   addBasketItem(item: String): [ticketItem!]
+  #   clearList(list: ListName): String
+  #   deleteOne(list: ListName, item: String): [ticketItem]
+  #   toggleBought(item: String): [ticketItem!]
+  # }
 `;
 
 module.exports = { typeDefs };

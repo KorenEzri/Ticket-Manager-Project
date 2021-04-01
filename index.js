@@ -9,7 +9,7 @@ const { typeDefs } = require("./typeDefs");
 
 const env = process.env.NODE_ENV || "production";
 const MONGO_URI = process.env[env === "test" ? "TEST_MONGO_URI" : "MONGO_URI"];
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3001;
 
 const connectMongo = async () => {
   console.log("Connecting to MongoDB");
@@ -45,7 +45,7 @@ const startServer = async () => {
   await connectMongo();
   app.listen({ port: PORT }, () =>
     console.log(
-      `Server is now running at http://localhost:3001${server.graphqlPath}`
+      `Server is now running at http://localhost:${PORT}${server.graphqlPath}`
     )
   );
 };

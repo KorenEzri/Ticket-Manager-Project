@@ -2,12 +2,17 @@ import { gql } from "@apollo/client";
 
 //COMMUNICATION ROUTES
 
-const allListItems = gql`
-  query allListItems($list: ListName) {
-    allListItems(list: $list) {
-      item
-      amount
-      isBought
+const allTickets = gql`
+  query allTickets {
+    allTickets {
+      title
+      content
+      correspondences
+      userEmail
+      done
+      creationTime
+      lastUpdated
+      labels
     }
   }
 `;
@@ -57,7 +62,7 @@ const toggleBought = gql`
 `;
 
 export default {
-  allListItems,
+  allTickets,
   addNewGroceryItem,
   addBasketItem,
   clearList,
