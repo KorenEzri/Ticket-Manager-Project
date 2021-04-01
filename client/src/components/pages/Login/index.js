@@ -6,18 +6,31 @@ import HowToUserAuth from "../../ExplainerCards/HowToUserAuth/index";
 import Navbar from "../../Navbar/index";
 import classNames from "classnames";
 import { useState, useRef } from "react";
-import network from "../../../network";
+import apolloUtils from "../../../apollo-client/apollo-utils";
+import { useApolloClient } from "@apollo/client";
 import "./Login.css";
-const baseUrl = `/api/communications`;
 
 export default function LoginPage() {
+  const client = useApolloClient();
   const createValidationKey = async (username) => {
-    await network.post(`${baseUrl}/initvalidation`, { username: username });
+    try {
+      await client.mutate({
+        mutation: apolloUtils.createValidationKey,
+        variables: { username: username },
+      });
+    } catch ({ message }) {
+      console.log(message);
+    }
   };
   const requestAndSendValidationKey = async (username) => {
-    await network.put(`${baseUrl}/requestvalidation`, {
-      username: username,
-    });
+    try {
+      await client.query({
+        query: apolloUtils.requestAndSendValidationKey,
+        variables: { username: username },
+      });
+    } catch ({ message }) {
+      console.log(message);
+    }
   };
 
   const [toggleKeySent, setToggleKeySent] = useState(false);
@@ -40,7 +53,7 @@ export default function LoginPage() {
       >
         <HowToUserAuth helperRef={helperRef} />
       </div>
-      <form action="/api/usermanagement/login" method="post" autocomplete="off">
+      <form action={`${}`} method="post" autoComplete="off">
         <div className="testbox">
           <h1>Employee Login</h1>
           <div className="user-info">
@@ -50,7 +63,7 @@ export default function LoginPage() {
               onChange={HandleTextChange}
               placeholder="Username"
               required
-              autocomplete="off"
+              autoComplete="off"
             />
             <AccountCircleIcon className="icons" />
             <input
@@ -58,7 +71,7 @@ export default function LoginPage() {
               name="password"
               placeholder="Password"
               required
-              autocomplete="off"
+              autoComplete="off"
             />
             <LockIcon className="icons" />
             <input
@@ -66,7 +79,7 @@ export default function LoginPage() {
               name="validation"
               placeholder="Company Validation Key"
               required
-              autocomplete="off"
+              autoComplete="off"
             />
             <VpnKeyIcon className="icons" />
           </div>

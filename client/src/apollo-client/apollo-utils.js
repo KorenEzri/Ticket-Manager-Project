@@ -32,55 +32,21 @@ const searchTickets = gql`
   }
 `;
 
-const addNewGroceryItem = gql`
-  mutation addGroceryItem($item: String) {
-    addGroceryItem(item: $item) {
-      item
-    }
+const requestAndSendValidationKey = gql`
+  query requestAndSendValidationKey($username: String) {
+    requestAndSendValidationKey(username: $username)
   }
 `;
 
-const addBasketItem = gql`
-  mutation addBasketItem($item: String) {
-    addBasketItem(item: $item) {
-      item
-      amount
-      isBought
-    }
-  }
-`;
-
-const clearList = gql`
-  mutation clearList($list: ListName) {
-    clearList(list: $list)
-  }
-`;
-
-const deleteOne = gql`
-  mutation deleteOne($list: ListName, $item: String) {
-    deleteOne(list: $list, item: $item) {
-      item
-      amount
-      isBought
-    }
-  }
-`;
-
-const toggleBought = gql`
-  mutation toggleBought($item: String) {
-    toggleBought(item: $item) {
-      item
-      amount
-      isBought
-    }
+const createValidationKey = gql`
+  mutation createValidationKey($username: String) {
+    createValidationKey(username: $username)
   }
 `;
 
 export default {
   allTickets,
   searchTickets,
-  addBasketItem,
-  clearList,
-  deleteOne,
-  toggleBought,
+  createValidationKey,
+  requestAndSendValidationKey,
 };
