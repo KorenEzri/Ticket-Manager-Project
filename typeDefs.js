@@ -32,6 +32,7 @@ const typeDefs = gql`
   }
   type Query {
     allTickets: [ticketItem]
+    searchTickets(input: String): [ticketItem]
   }
   # type Mutation {
   #   addGroceryItem(item: String): [ticketItem!]

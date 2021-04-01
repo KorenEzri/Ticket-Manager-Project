@@ -20,6 +20,19 @@ const resolvers = {
         console.log(message);
       }
     },
+    searchTickets: async (_, { input }) => {
+      try {
+        const tickets = await Ticket.find({
+          $or: [
+            { title: { $regex: `${input}`, $options: "i" } },
+            { labels: { $regex: `${input}`, $options: "i" } },
+          ],
+        });
+        return tickets;
+      } catch ({ message }) {
+        console.log(message);
+      }
+    },
   },
   // Mutation: {
   //   addGroceryItem: async (_, { item }) => {

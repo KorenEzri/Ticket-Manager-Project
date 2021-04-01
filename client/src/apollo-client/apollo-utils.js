@@ -17,6 +17,21 @@ const allTickets = gql`
   }
 `;
 
+const searchTickets = gql`
+  query searchTickets($input: String) {
+    searchTickets(input: $input) {
+      title
+      content
+      correspondences
+      userEmail
+      done
+      creationTime
+      lastUpdated
+      labels
+    }
+  }
+`;
+
 const addNewGroceryItem = gql`
   mutation addGroceryItem($item: String) {
     addGroceryItem(item: $item) {
@@ -63,7 +78,7 @@ const toggleBought = gql`
 
 export default {
   allTickets,
-  addNewGroceryItem,
+  searchTickets,
   addBasketItem,
   clearList,
   deleteOne,

@@ -2,10 +2,10 @@ import React from "react";
 import "./Searchbox.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
-import network from "../../../network";
 import TextField from "@material-ui/core/TextField";
-import axios from "axios";
-let cancelToken;
+import apolloUtils from "../../../apollo-client/apollo-utils";
+import { useApolloClient } from "@apollo/client";
+let times;
 
 const useStyles = makeStyles((theme) => ({
   searchBox: {
@@ -20,21 +20,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Searchbox({ setTicketList }) {
+  const debounce = (func, time) => {
+    clearTimeout(times);
+    times = setTimeout(func, time);
+  };
+  const client = useApolloClient();
   const classes = useStyles();
   const [textInputValue, setTextInputValue] = useState("");
-
-  const sendSearchQuery = async (searchInput) => {
+  const handleSearchInput = (searchInput) => {
     const input = searchInput.target.value;
     setTextInputValue(input);
-    if (cancelToken) {
-      cancelToken.cancel("Operation canceled due to new request.");
-    }
-    cancelToken = axios.CancelToken.source();
+    debounce(() => {
+      sendSearchQuery(input);
+    }, 250);
+  };
+  const sendSearchQuery = async (input) => {
     try {
-      const { data } = await network.get(`/api/tickets?searchText=${input}`, {
-        cancelToken: cancelToken.token,
+      const {
+        data: { searchTickets },
+      } = await client.query({
+        query: apolloUtils.searchTickets,
+        variables: { input: `${input}` },
       });
-      setTicketList(data);
+      console.log(searchTickets);
+      setTicketList(searchTickets);
     } catch ({ message }) {
       console.log(message);
     }
@@ -45,7 +54,7 @@ export default function Searchbox({ setTicketList }) {
         type="text"
         id="searchInput"
         value={textInputValue}
-        onChange={sendSearchQuery}
+        onChange={handleSearchInput}
         autoComplete="off"
         variant="filled"
         label="Search by tags or title"

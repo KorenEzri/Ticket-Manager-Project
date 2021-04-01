@@ -9,7 +9,6 @@ import Loader from "react-loader";
 import classNames from "classnames";
 import apolloUtils from "../../../apollo-client/apollo-utils";
 import { useApolloClient } from "@apollo/client";
-const baseUrl = `/api/tickets`;
 
 export default function Homepage() {
   const client = useApolloClient();
