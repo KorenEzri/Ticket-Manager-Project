@@ -4,6 +4,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require("path");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const { resolvers } = require("./resolvers");
@@ -75,5 +76,8 @@ const startServer = async () => {
       `Server is now running at http://localhost:${PORT}${server.graphqlPath}`
     )
   );
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/client/build/index.html"));
+  });
 };
 startServer();
