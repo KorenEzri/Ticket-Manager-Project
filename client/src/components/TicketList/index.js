@@ -4,7 +4,6 @@ import "./TicketList.css";
 import Ticket from "./Ticket/index";
 
 function TicketList({ manageTickets }) {
-  console.log("TICKETS: ", manageTickets.ticketList);
   let showTickets;
   if (manageTickets.i < 197) {
     showTickets = manageTickets.ticketList.slice(0, manageTickets.i);
