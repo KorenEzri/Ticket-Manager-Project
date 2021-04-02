@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
@@ -27,6 +29,27 @@ const connectMongo = async () => {
 };
 const startServer = async () => {
   const app = express();
+  app.use(cookieParser());
+  app.use(
+    cors({
+      allowedHeaders: ["Content-Type"],
+      origin: "*",
+      preflightContinue: true,
+    })
+  );
+  app.use(function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-Requested-With,content-type"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    next();
+  });
   // app.use(express.static("src/frontend"));
   app.use(express.static("client/build"));
   app.use(
@@ -36,8 +59,13 @@ const startServer = async () => {
   );
   app.use(bodyParser.json());
   app.use(morgan("tiny"));
-
   const server = new ApolloServer({
+    context: ({ req, res }) => ({ req, res }),
+    playground: {
+      settings: {
+        "request.credentials": "include",
+      },
+    },
     typeDefs,
     resolvers,
   });

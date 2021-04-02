@@ -38,6 +38,12 @@ const requestAndSendValidationKey = gql`
   }
 `;
 
+const login = gql`
+  query login($username: String, $password: String) {
+    login(username: $username, password: $password)
+  }
+`;
+
 const createValidationKey = gql`
   mutation createValidationKey($username: String) {
     createValidationKey(username: $username)
@@ -49,4 +55,5 @@ export default {
   searchTickets,
   createValidationKey,
   requestAndSendValidationKey,
+  login,
 };

@@ -34,16 +34,11 @@ const typeDefs = gql`
     allTickets: [ticketItem]
     searchTickets(input: String): [ticketItem]
     requestAndSendValidationKey(username: String): String
+    login(username: String, password: String): String
   }
-  type Mutation {
-    createValidationKey(username: String): String
-
-    #   addGroceryItem(item: String): [ticketItem!]
-    #   addBasketItem(item: String): [ticketItem!]
-    #   clearList(list: ListName): String
-    #   deleteOne(list: ListName, item: String): [ticketItem]
-    #   toggleBought(item: String): [ticketItem!]
-  }
+  # type Mutation {
+  #   register(item: String): [ticketItem!]
+  # }
 `;
 
 module.exports = { typeDefs };

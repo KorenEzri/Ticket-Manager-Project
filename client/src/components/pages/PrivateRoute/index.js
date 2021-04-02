@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import network from "../../../network";
 
 export default function PrivateRoute({
