@@ -218,6 +218,7 @@ export default function Ticket({ ticket, manageTickets }) {
                   },
                 });
                 manageTickets.handleTicketList(updateTicket);
+                window.location.reload();
               } catch ({ message }) {
                 console.log(message);
               }

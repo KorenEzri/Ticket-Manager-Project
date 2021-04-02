@@ -117,22 +117,6 @@ export default function Homepage() {
     showMore,
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (isEditing) {
-  //       return;
-  //     }
-  //     setLoading(false);
-  //     const { data } = await network.get(`${baseUrl}`);
-  //     setTicketList(data);
-  //     setRestoreBin(data);
-  //     setLoading(true);
-  //   })();
-  // }, [setTicketList, isEditing, setIndex]);
-  // window.onscroll = () => {
-  //   handleScrollEvent();
-  // };
-
   useEffect(() => {
     (async () => {
       if (isEditing) {
@@ -152,7 +136,7 @@ export default function Homepage() {
         console.log(message);
       }
     })();
-  }, [setTicketList, isEditing, setIndex]);
+  }, [setTicketList]);
 
   window.onscroll = () => {
     handleScrollEvent();
