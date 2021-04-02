@@ -11,7 +11,6 @@ function TicketList({ manageTickets }) {
   } else {
     manageTickets.i = false;
   }
-  console.log(manageTickets.ticketList[0]);
   return (
     <div
       className="wrapper"
