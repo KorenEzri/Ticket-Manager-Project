@@ -1,6 +1,0 @@
-This favicon was generated using the following font:
-
-- Font Title: Oldenburg
-- Font Author: Copyright (c) 2010 by Sorkin Type Co with Reserved Font Name Oldenburgh.
-- Font Source: http://fonts.gstatic.com/s/oldenburg/v10/fC1jPY5JYWzbywv7c4V6UU6oXyndrw.ttf
-- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL)
