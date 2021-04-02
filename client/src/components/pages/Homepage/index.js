@@ -117,6 +117,22 @@ export default function Homepage() {
     showMore,
   };
 
+  // useEffect(() => {
+  //   (async () => {
+  //     if (isEditing) {
+  //       return;
+  //     }
+  //     setLoading(false);
+  //     const { data } = await network.get(`${baseUrl}`);
+  //     setTicketList(data);
+  //     setRestoreBin(data);
+  //     setLoading(true);
+  //   })();
+  // }, [setTicketList, isEditing, setIndex]);
+  // window.onscroll = () => {
+  //   handleScrollEvent();
+  // };
+
   useEffect(() => {
     (async () => {
       if (isEditing) {
@@ -131,10 +147,10 @@ export default function Homepage() {
         });
         setTicketList(allTickets);
         setRestoreBin(allTickets);
+        setLoading(true);
       } catch ({ message }) {
         console.log(message);
       }
-      setLoading(true);
     })();
   }, [setTicketList, isEditing, setIndex]);
   window.onscroll = () => {
