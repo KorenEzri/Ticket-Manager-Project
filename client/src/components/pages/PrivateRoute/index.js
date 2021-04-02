@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useState } from "react";
-import network from "../../../network";
 import apolloUtils from "../../../apollo-client/apollo-utils";
 import { useApolloClient } from "@apollo/client";
 
