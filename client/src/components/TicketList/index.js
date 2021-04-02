@@ -3,7 +3,8 @@ import React from "react";
 import "./TicketList.css";
 import Ticket from "./Ticket/index";
 
-export default function TicketList({ manageTickets }) {
+function TicketList({ manageTickets }) {
+  console.log("TICKETS: ", manageTickets.ticketList);
   let showTickets;
   if (manageTickets.i < 197) {
     showTickets = manageTickets.ticketList.slice(0, manageTickets.i);
@@ -55,3 +56,4 @@ export default function TicketList({ manageTickets }) {
     </div>
   );
 }
+export default React.memo(TicketList);

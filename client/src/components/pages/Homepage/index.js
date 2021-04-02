@@ -153,6 +153,7 @@ export default function Homepage() {
       }
     })();
   }, [setTicketList, isEditing, setIndex]);
+
   window.onscroll = () => {
     handleScrollEvent();
   };
