@@ -69,7 +69,7 @@ const resolvers = {
       }
     },
     requestAndSendValidationKey: async (_, { username }) => {
-      const foundUser = await User.findOne({ username: username });
+      const foundUser = await User.findOne({ username });
       if (foundUser) {
         const message = {
           userEmail: "cyber4sdummyaddress@gmail.com",
@@ -86,7 +86,7 @@ const resolvers = {
     },
     login: async (_, { username, password }, { req, res }) => {
       try {
-        const findUser = await User.findOne({ username: username });
+        const findUser = await User.findOne({ username });
         const passwordHash = findUser.password;
         const result = await bcrypt.compare(password, passwordHash);
         if (result == true) {
@@ -115,7 +115,27 @@ const resolvers = {
       }
     },
   },
-  // Mutation: {},
+  Mutation: {
+    register: async (_, { email, firstName, lastName, username, password }) => {
+      try {
+        const hash = await bcrypt.hash(password, 10);
+        password = hash;
+        const user = new User({
+          email,
+          firstName,
+          lastName,
+          username,
+          password,
+        });
+        console.log(user);
+        await user.save();
+        return "OK";
+      } catch ({ message }) {
+        console.log(message);
+        return `${message}`;
+      }
+    },
+  },
 };
 
 module.exports = { resolvers };

@@ -11,7 +11,7 @@ const { typeDefs } = require("./typeDefs");
 
 const env = process.env.NODE_ENV || "production";
 const MONGO_URI = process.env[env === "test" ? "TEST_MONGO_URI" : "MONGO_URI"];
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 
 const connectMongo = async () => {
   console.log("Connecting to MongoDB");
@@ -50,7 +50,6 @@ const startServer = async () => {
     res.setHeader("Access-Control-Allow-Credentials", true);
     next();
   });
-  // app.use(express.static("src/frontend"));
   app.use(express.static("client/build"));
   app.use(
     bodyParser.urlencoded({

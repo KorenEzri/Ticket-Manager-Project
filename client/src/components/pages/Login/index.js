@@ -23,7 +23,7 @@ export default function LoginPage() {
   const HandlePasswordChange = (event) => {
     setPasswordInput(event.target.value);
   };
-  const sendLoginQuery = async (username, password) => {
+  const sendLoginQuery = async (username, password, setter) => {
     if (username && password) {
       try {
         const {
@@ -35,7 +35,7 @@ export default function LoginPage() {
         if (login !== "OK") {
           alert("Login failed");
         } else {
-          setIsValidated(true);
+          setter(true);
         }
       } catch ({ message }) {
         console.log(message);
@@ -82,7 +82,7 @@ export default function LoginPage() {
             className="login-button"
             type="button"
             onClick={async () => {
-              await sendLoginQuery(textInput, passwordInput);
+              await sendLoginQuery(textInput, passwordInput, setIsValidated);
             }}
           >
             Login

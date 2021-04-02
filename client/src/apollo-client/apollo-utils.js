@@ -44,6 +44,24 @@ const login = gql`
   }
 `;
 
+const register = gql`
+  mutation register(
+    $email: String
+    $firstName: String
+    $lastName: String
+    $username: String
+    $password: String
+  ) {
+    register(
+      email: $email
+      firstName: $firstName
+      lastName: $lastName
+      username: $username
+      password: $password
+    )
+  }
+`;
+
 const createValidationKey = gql`
   mutation createValidationKey($username: String) {
     createValidationKey(username: $username)
@@ -56,4 +74,5 @@ export default {
   createValidationKey,
   requestAndSendValidationKey,
   login,
+  register,
 };

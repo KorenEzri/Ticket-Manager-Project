@@ -36,9 +36,15 @@ const typeDefs = gql`
     requestAndSendValidationKey(username: String): String
     login(username: String, password: String): String
   }
-  # type Mutation {
-  #   register(item: String): [ticketItem!]
-  # }
+  type Mutation {
+    register(
+      email: String
+      firstName: String
+      lastName: String
+      username: String
+      password: String
+    ): String
+  }
 `;
 
 module.exports = { typeDefs };
