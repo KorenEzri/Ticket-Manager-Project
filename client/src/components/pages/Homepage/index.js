@@ -19,7 +19,7 @@ export default function Homepage() {
   const [showHelp, showHelpCards] = useState(false);
   const helperRef = useRef(null);
   const [isEditing, setEditing] = useState(false);
-  const [loaded, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [i, setIndex] = useState(3);
 
@@ -117,28 +117,12 @@ export default function Homepage() {
     showMore,
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (isEditing) {
-  //       return;
-  //     }
-  //     setLoading(false);
-  //     const { data } = await network.get(`${baseUrl}`);
-  //     setTicketList(data);
-  //     setRestoreBin(data);
-  //     setLoading(true);
-  //   })();
-  // }, [setTicketList, isEditing, setIndex]);
-  // window.onscroll = () => {
-  //   handleScrollEvent();
-  // };
-
   useEffect(() => {
     (async () => {
       if (isEditing) {
         return;
       }
-      setLoading(false);
+      setLoaded(false);
       try {
         const {
           data: { allTickets },
@@ -147,9 +131,10 @@ export default function Homepage() {
         });
         setTicketList(allTickets);
         setRestoreBin(allTickets);
-        setLoading(true);
       } catch ({ message }) {
         console.log(message);
+      } finally {
+        setLoaded(true);
       }
     })();
   }, [setTicketList, isEditing, setIndex]);
