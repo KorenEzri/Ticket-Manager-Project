@@ -3,7 +3,7 @@
  
 # Introduction
 
-This is a Ticket Manager built with React.js, nodejs and MongoDB. 
+This is a Ticket Manager built with React.js, nodejs, GraphQL, Apollo and MongoDB. 
 
 ## Usage
 
