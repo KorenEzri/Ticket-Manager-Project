@@ -114,6 +114,14 @@ const resolvers = {
         console.error(error);
       }
     },
+    checkCookies: async (_, { cookie }) => {
+      const currentCookie = await Cookie.findOne({ cookie: "loggedIn" });
+      if (currentCookie && currentCookie.value === Number(cookie)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   Mutation: {
     register: async (_, { email, firstName, lastName, username, password }) => {
@@ -134,6 +142,34 @@ const resolvers = {
         console.log(message);
         return `${message}`;
       }
+    },
+    updateTicket: async (
+      _,
+      {
+        content,
+        correspondences,
+        done,
+        userEmail,
+        labels,
+        title,
+        creationTime,
+        lastUpdated,
+      }
+    ) => {
+      const ticket = {
+        content,
+        correspondences,
+        done,
+        userEmail,
+        labels,
+        title,
+        creationTime,
+        lastUpdated,
+      };
+      await Ticket.updateOne({ title: ticket.title }, ticket);
+      const allTickets = await Ticket.find({});
+      // sendMail(data);
+      return allTickets;
     },
   },
 };

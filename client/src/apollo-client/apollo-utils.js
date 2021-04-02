@@ -38,6 +38,12 @@ const requestAndSendValidationKey = gql`
   }
 `;
 
+const checkCookies = gql`
+  query checkCookies($cookie: String) {
+    checkCookies(cookie: $cookie)
+  }
+`;
+
 const login = gql`
   query login($username: String, $password: String) {
     login(username: $username, password: $password)
@@ -62,6 +68,39 @@ const register = gql`
   }
 `;
 
+const updateTicket = gql`
+  mutation updateTicket(
+    $content: String
+    $correspondences: [String]
+    $done: Boolean
+    $userEmail: String
+    $labels: [String]
+    $title: String
+    $creationTime: Date
+    $lastUpdated: Date
+  ) {
+    updateTicket(
+      content: $content
+      correspondences: $correspondences
+      done: $done
+      userEmail: $userEmail
+      labels: $labels
+      title: $title
+      creationTime: $creationTime
+      lastUpdated: $lastUpdated
+    ) {
+      content
+      correspondences
+      done
+      userEmail
+      labels
+      title
+      creationTime
+      lastUpdated
+    }
+  }
+`;
+
 const createValidationKey = gql`
   mutation createValidationKey($username: String) {
     createValidationKey(username: $username)
@@ -75,4 +114,6 @@ export default {
   requestAndSendValidationKey,
   login,
   register,
+  checkCookies,
+  updateTicket,
 };

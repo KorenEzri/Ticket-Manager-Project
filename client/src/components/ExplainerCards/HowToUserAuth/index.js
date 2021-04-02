@@ -41,9 +41,7 @@ export default function HowToUserAuth({ helperRef }) {
           Logging In
         </Typography>
         <Typography variant="body1" component="p">
-          To log in, enter your username and password, then enter your CVK. The
-          CVK is sent via email upon clicking "Request Key", and will last for
-          up to fifteen minutes.
+          To log in, enter your username and password.
         </Typography>
       </CardContent>
       <CardActions>

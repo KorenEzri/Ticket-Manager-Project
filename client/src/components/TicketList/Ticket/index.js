@@ -9,7 +9,8 @@ import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
-import network from "../../../network";
+import apolloUtils from "../../../apollo-client/apollo-utils";
+import { useApolloClient } from "@apollo/client";
 
 const useStyles = makeStyles((theme) => ({
   contentField: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Ticket({ ticket, manageTickets }) {
+  const client = useApolloClient();
   const classes = useStyles();
   const [textValue, setTextValue] = useState("");
   const [done, setDoneValue] = useState(Boolean);
@@ -198,21 +200,24 @@ export default function Ticket({ ticket, manageTickets }) {
             color="primary"
             className={classes.sendButton}
             onClick={async () => {
-              const updatedTicketData = {
-                title: ticket.title,
-                labels: ticket.labels,
-                creationTime: ticket.creationTime,
-                content: ticket.content,
-                correspondences: [textValue].concat(ticket.correspondences),
-                done,
-                userEmail: ticket.userEmail,
-                lastUpdated: new Date(),
-              };
               try {
-                const { data } = await network.post("/api/communications", {
-                  data: updatedTicketData,
+                const {
+                  data: { updateTicket },
+                } = await client.mutate({
+                  mutation: apolloUtils.updateTicket,
+                  variables: {
+                    id: ticket.id,
+                    title: ticket.title,
+                    labels: ticket.labels,
+                    creationTime: ticket.creationTime,
+                    content: ticket.content,
+                    correspondences: [textValue].concat(ticket.correspondences),
+                    done,
+                    userEmail: ticket.userEmail,
+                    lastUpdated: new Date(),
+                  },
                 });
-                manageTickets.handleTicketList(data);
+                manageTickets.handleTicketList(updateTicket);
               } catch ({ message }) {
                 console.log(message);
               }

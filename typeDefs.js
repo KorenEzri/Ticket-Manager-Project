@@ -35,6 +35,7 @@ const typeDefs = gql`
     searchTickets(input: String): [ticketItem]
     requestAndSendValidationKey(username: String): String
     login(username: String, password: String): String
+    checkCookies(cookie: String): Boolean
   }
   type Mutation {
     register(
@@ -44,6 +45,16 @@ const typeDefs = gql`
       username: String
       password: String
     ): String
+    updateTicket(
+      content: String
+      correspondences: [String]
+      done: Boolean
+      userEmail: String
+      labels: [String]
+      title: String
+      creationTime: Date
+      lastUpdated: Date
+    ): [ticketItem]
   }
 `;
 

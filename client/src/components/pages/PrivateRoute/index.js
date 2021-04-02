@@ -2,6 +2,8 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useState } from "react";
 import network from "../../../network";
+import apolloUtils from "../../../apollo-client/apollo-utils";
+import { useApolloClient } from "@apollo/client";
 
 export default function PrivateRoute({
   component,
@@ -10,6 +12,7 @@ export default function PrivateRoute({
   ticketList,
   setTicketList,
 }) {
+  const client = useApolloClient();
   const validateCookie = (document.cookie.match(
     /^(?:.*;)?\s*loggedIn\s*=\s*([^;]+)(?:.*)?$/
   ) || [, null])[1];
@@ -17,13 +20,22 @@ export default function PrivateRoute({
 
   const validateCookies = async () => {
     if (isValidated === null) return false;
-    const { data } = await network.get(`/api/usermanagement/${validateCookie}`);
-    return data;
+    try {
+      const {
+        data: { checkCookies },
+      } = await client.query({
+        query: apolloUtils.checkCookies,
+        variables: { cookie: validateCookie },
+      });
+      setIsValidated(checkCookies);
+    } catch ({ message }) {
+      console.log(message);
+    }
   };
 
   setTimeout(() => {
     validateCookies();
-  }, 3000);
+  }, 600);
 
   return isValidated ? (
     <Route
