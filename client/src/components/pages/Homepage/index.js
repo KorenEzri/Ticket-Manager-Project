@@ -96,7 +96,7 @@ export default function Homepage() {
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-    if (offSet > pageScrollLimit - 960 && !isEditing) {
+    if (offSet > pageScrollLimit - 980 && !isEditing) {
       setShowMore(true);
       setTimeout(() => {
         setIndex(i + 3);
