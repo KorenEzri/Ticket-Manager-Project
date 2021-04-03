@@ -1,0 +1,10 @@
+#searchInput {
+  background-color: rgba(255, 255, 255, 0.37);
+  font-size: 20px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  height: 20px;
+}
+/*# sourceMappingURL=Searchbox.css.map */

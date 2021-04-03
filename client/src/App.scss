@@ -1,61 +1,44 @@
 *:focus {
   outline: none;
 }
-
 body {
   overflow-x: hidden;
   margin-top: 10vh;
-}
-
-@media (max-width: 768px) {
-  body {
+  @media (max-width: 768px) {
+    margin-top: unset;
+  }
+  @media (max-height: 768px) {
     margin-top: unset;
   }
 }
-
-@media (max-height: 768px) {
-  body {
-    margin-top: unset;
-  }
-}
-
 ::-webkit-scrollbar {
   width: 12px;
 }
-
 ::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #e1e1e1;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #ffffff;
 }
-
 ::-webkit-scrollbar-thumb:active {
   background: #000000;
 }
-
 ::-webkit-scrollbar-track {
   background: #666666c9;
   border: 0px none #ffffff;
 }
-
 ::-webkit-scrollbar-track:hover {
   background: #666666;
 }
-
 ::-webkit-scrollbar-track:active {
   background: #333333;
 }
-
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
-/*# sourceMappingURL=App.css.map */

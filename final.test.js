@@ -31,7 +31,7 @@ const connectToMongoDB = async () => {
 
 const projectName = "1.Tickets manager backend";
 describe(projectName, () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(20000);
   beforeAll(async () => {
     await full4s.beforeAll();
     await connectToMongoDB();

@@ -1,0 +1,173 @@
+* {
+  list-style-type: none;
+}
+
+.ticket {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
+  box-shadow: 5px 2px 15px 5px rgba(0, 0, 0, 0.61);
+  -webkit-transition: 600ms;
+  transition: 600ms;
+  margin-top: 32px;
+  padding: 12px;
+  border: 1px solid #fffefe;
+  background-color: #d8e7f5;
+}
+
+.ticket:hover {
+  background-color: aliceblue;
+  -webkit-transition: 600ms;
+  transition: 600ms;
+}
+
+.ticket:hover .tag-span {
+  -webkit-transition: 600ms;
+  transition: 600ms;
+  background-color: #618ff3;
+}
+
+.tag-span {
+  -webkit-transition: 600ms;
+  transition: 600ms;
+  background-color: rgba(46, 107, 238, 0.842);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  letter-spacing: 1px;
+  padding: 1px;
+  border-radius: 4px;
+  margin-right: 3px;
+  font-size: 16px !important;
+  color: whitesmoke !important;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.edit-tag-span {
+  background-color: rgba(46, 107, 238, 0.842);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding: 1px;
+  border-radius: 4px;
+  margin-right: 0.1px;
+  color: whitesmoke !important;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.ticket_title {
+  font-size: 18px;
+  margin-top: 3px;
+  font-weight: 700;
+  color: #941515;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.ticket_content-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.ticket_content-div .ticket_content-summary {
+  cursor: pointer;
+  padding: 6px;
+}
+
+.ticket_content-div .ticket_content {
+  word-break: break-all;
+  margin-top: -13px;
+  margin-bottom: 1px;
+  padding: 6px;
+}
+
+.ticket_content-div details[open] summary ~ * {
+  -webkit-animation: sweep 0.5s ease-in-out;
+          animation: sweep 0.5s ease-in-out;
+}
+
+@-webkit-keyframes sweep {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.ticket_content-div .expand-collapse {
+  float: right;
+  position: relative;
+  top: 5px;
+}
+
+.ticket_done {
+  color: #d915e7;
+}
+
+.correspondence {
+  margin: 10px;
+  border: 1px solid rgba(202, 202, 202, 0.911);
+  padding: 12px;
+}
+
+.correspondence_date {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hideTicketButton {
+  -webkit-box-shadow: inset 0px 1px 0px 0px #dcecfb;
+          box-shadow: inset 0px 1px 0px 0px #dcecfb;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #bddbfa), to(#80b5ea));
+  background: linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+  background-color: #bddbfa;
+  border-radius: 6px;
+  border: 1px solid #84bbf3;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #528ecc;
+}
+
+.hideTicketButton:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #80b5ea), to(#bddbfa));
+  background: linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
+  background-color: #80b5ea;
+}
+
+.hideTicketButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.relative-position-loader-div {
+  position: relative;
+}
+
+.show-more-loader {
+  position: absolute;
+  bottom: 0px;
+}
+/*# sourceMappingURL=TicketList.css.map */

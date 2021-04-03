@@ -2,8 +2,7 @@ require("dotenv").config();
 const app = require("./app");
 const mongoose = require("mongoose");
 const env = process.env.NODE_ENV || "production";
-const MONGO_URI =
-  env === "test" ? process.env.TEST_MONGO_URI : process.env.MONGO_URI;
+const MONGO_URI = process.env[env === "test" ? "TEST_MONGO_URI" : "MONGO_URI"];
 const PORT = process.env.PORT || 8080;
 
 mongoose
