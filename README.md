@@ -3,19 +3,17 @@
  
 # Introduction
 
-This is a Ticket Manager built with React.js, nodejs, GraphQL, Apollo and MongoDB. 
+This is a Ticket Manager built with React.js, GraphQL, Apollo Client, Nodejs and MongoDB. 
 
 ## Usage
 
-### PS: I recommend you download the ZIP from the "no-test-branch" and run locally to enjoy the actual working email system and user Auth.
 ## Simply visit [this page](https://ko-managge.herokuapp.com/), and get TICKETING! 
 
 
 A couple of the product's most prominent features include:
 
-## Security: Two-factor authentication with email OTPs and COOKIES:
+## Security: User authentication: hashing, cookie management and validation.
 ![pic one](mainintrogif.gif)
-## User authentication - hashing, cookie management and validation:
 ## Full-fledged Ticket system: editing tickets, records and dates for each response, correspondence system and email system: 
 ![gif](editinggif.gif)
 
@@ -23,7 +21,7 @@ A couple of the product's most prominent features include:
 ## Usage: Features
 ### * Infinite scrolling - don't load more than you need!
 ![inf](infinitescroll.gif) ![slick](slickgif.gif)
-* Secure - hashing and two-factor authentication via email.
+* Secure.
 * Easy-to-use, user-friendly ticket-system.
 * Slick animations and design
 * Logging for all correspondences including dates of each reply sent!
