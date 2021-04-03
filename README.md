@@ -22,7 +22,7 @@ A couple of the product's most prominent features include:
 ## Usage: Features
 ### * Infinite scrolling - don't load more than you need!
 ![inf](infinitescroll.gif) ![slick](slickgif.gif)
-* Secure - hashing and two-factor authentication via email.
+* Secure.
 * Easy-to-use, user-friendly ticket-system.
 * Slick animations and design
 * Logging for all correspondences including dates of each reply sent!
