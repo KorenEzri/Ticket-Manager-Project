@@ -16,7 +16,8 @@ A couple of the product's most prominent features include:
 ![pic one](mainintrogif.gif)
 ## Full-fledged Ticket system: editing tickets, records and dates for each response, correspondence system and email system: 
 ![gif](editinggif.gif)
-
+## Responding to tickets: 
+### To respond to a ticket, simply double-click it. This will open the "Edit-mode" UI for the ticket, in which you will be able to choose who to reply to via email, write your response and view everything else you may need about the ticket.
 
 ## Usage: Features
 ### * Infinite scrolling - don't load more than you need!
