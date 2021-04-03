@@ -8,7 +8,7 @@ This is a Ticket Manager built with React.js, nodejs and MongoDB.
 ## Usage
 
 ### PS: I recommend you download the ZIP from the "no-test-branch" and run locally to enjoy the actual working email system and user Auth.
-## Simply visit [this page](https://ko-manager.herokuapp.com/), and get TICKETING! 
+## Simply visit [this page](https://ko-managge.herokuapp.com/), and get TICKETING! 
 
 
 A couple of the product's most prominent features include:
