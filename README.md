@@ -1,4 +1,4 @@
-# Ko-manage: a ticket manager by Koren Ben Ezri
+# Ko-manage: a ticket manager
 ![](main.PNG)
  
 # Introduction
