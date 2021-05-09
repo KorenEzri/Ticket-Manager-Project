@@ -34,17 +34,9 @@ const typeDefs = gql`
     allTickets: [ticketItem]
     searchTickets(input: String): [ticketItem]
     requestAndSendValidationKey(username: String): String
-    login(username: String, password: String): String
     checkCookies(cookie: String): Boolean
   }
   type Mutation {
-    register(
-      email: String
-      firstName: String
-      lastName: String
-      username: String
-      password: String
-    ): String
     updateTicket(
       content: String
       correspondences: [String]

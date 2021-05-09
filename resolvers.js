@@ -3,7 +3,6 @@ const Ticket = require("./mongo/models/ticket");
 const User = require("./mongo/models/user");
 const Cookie = require("./mongo/models/cookie");
 const nodemailer = require("nodemailer");
-const bcrypt = require("bcrypt");
 const PASS = process.env.EMAILPWD;
 
 const sendMail = async (message, validator) => {
@@ -84,36 +83,6 @@ const resolvers = {
         return "There was a problem processing the request.";
       }
     },
-    login: async (_, { username, password }, { req, res }) => {
-      try {
-        const findUser = await User.findOne({ username });
-        const passwordHash = findUser.password;
-        const result = await bcrypt.compare(password, passwordHash);
-        if (result == true) {
-          const cookieName = "loggedIn";
-          const random = Math.floor(Math.random() * 121);
-          const newCookie = new Cookie({
-            cookie: "loggedIn",
-            value: random,
-          });
-          try {
-            await Cookie.deleteOne({ cookie: "loggedIn" });
-            await newCookie.save();
-            await res.cookie(cookieName, random, {
-              maxAge: 2200000,
-              httpOnly: false,
-            });
-            return "OK";
-          } catch ({ message }) {
-            console.log(message);
-          }
-        } else if (result == false) {
-          return "user not found";
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
     checkCookies: async (_, { cookie }) => {
       const currentCookie = await Cookie.findOne({ cookie: "loggedIn" });
       if (currentCookie && currentCookie.value === Number(cookie)) {
@@ -124,25 +93,6 @@ const resolvers = {
     },
   },
   Mutation: {
-    register: async (_, { email, firstName, lastName, username, password }) => {
-      try {
-        const hash = await bcrypt.hash(password, 10);
-        password = hash;
-        const user = new User({
-          email,
-          firstName,
-          lastName,
-          username,
-          password,
-        });
-        console.log(user);
-        await user.save();
-        return "OK";
-      } catch ({ message }) {
-        console.log(message);
-        return `${message}`;
-      }
-    },
     updateTicket: async (
       _,
       {

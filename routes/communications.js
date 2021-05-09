@@ -4,7 +4,6 @@ const User = require("../mongo/models/user");
 const communications = Router();
 const ValidationKey = require("../mongo/models/company-validation");
 const nodemailer = require("nodemailer");
-const bcrypt = require("bcrypt");
 const { nanoid } = require("nanoid");
 const saltRounds = 10;
 const PASS = process.env.EMAILPWD;
@@ -12,7 +11,7 @@ let initialValidationKey;
 
 const sendMail = async (message, validator) => {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
@@ -56,26 +55,6 @@ communications.post("/", async (req, res) => {
   const allTickets = await Ticket.find({});
   sendMail(data);
   res.status(200).send(allTickets);
-});
-
-communications.post("/initvalidation", async (req, res) => {
-  const { username } = req.body;
-  initialValidationKey = nanoid();
-  bcrypt.hash(initialValidationKey, saltRounds, async function (err, hash) {
-    if (err) {
-      console.error(err);
-      return res.status(400).json({ success: false });
-    } else {
-      const key = new ValidationKey({
-        key: hash,
-        username: username,
-      });
-      await ValidationKey.deleteOne({ username: username });
-      console.log(key);
-      await key.save();
-      res.status(200).send("OK");
-    }
-  });
 });
 
 communications.put("/requestvalidation", async (req, res) => {
